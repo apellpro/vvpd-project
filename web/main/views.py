@@ -16,6 +16,6 @@ def get_some_information(request):
     info = {
         'one': 1,
         'two': 'четыре',
-        'obama': ['obama', 'obama']
+        'field': ['aaa', 'aaaaa']
     }
     return JsonResponse(info)
