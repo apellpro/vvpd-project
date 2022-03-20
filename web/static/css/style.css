@@ -1,0 +1,199 @@
+* {
+	font-family: Bahnschrift;
+	font-style: normal;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	position: relative;
+	background: linear-gradient(to top left, #bbbbbf, #4e4e73);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	width: 100vw;
+	background-attachment: fixed;
+}
+
+body .header {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 10px;
+}
+
+body .header .header-item {
+	padding: 10px 20px;
+	font-size: 30px;
+	margin-left: 5px;
+	border-left: 1px solid #ffffff;
+}
+
+body .header .header-item:first-child {
+	border-left: none;
+}
+
+body .header a {
+	text-decoration: none;
+	padding: 6px;
+	color: #ffffff;
+	font-size: 24px;
+}
+
+body .header a:hover {
+	border-bottom: #ff4500 4px solid;
+}
+
+body .header a:active {
+	border-bottom: #f15a5a 4px solid;
+}
+
+body .header .header-name {
+	font-weight: bold;
+	color: #ffffff;
+}
+
+body .page-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+}
+
+#search {
+	display: none;
+}
+
+#search:target {
+	display: block;
+	background-color: #f0f0f0;
+	border-radius: 20px; 
+}
+
+#search:target ~ #enter {
+    display: none;
+}
+
+#search:target ~ #teacher {
+    border-bottom: #f15a5a 4px solid;
+}
+
+
+.page-content #search .search-items {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.page-content #search .search-items input {
+	font-size: 16px;
+	width: 350px;
+    padding: 5px 10px 5px 10px;
+	margin: 10px 0;
+	outline-color: #f15a5a;
+}
+
+.page-content #search .search-items .search-name {
+	font-size: 30px; 
+	color: #f15a5a;
+	padding: 20px 60px 0 60px;
+}
+
+.page-content #search .search-items .search-info {
+	font-size: 16px; 
+	background-color: #ced2eb; 
+	margin: 10px 0;
+	width: 100%;
+}
+
+#search .search-items .search-info p {
+	padding: 0 10px 5px 10px;
+}
+
+#search .search-items .search-info p:first-child {
+	padding-top: 5px;
+}
+
+.page-content #search .search-items .search-btn {
+	border: none;
+	outline: none;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 20px; 
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 5px 70px;
+	color: #ffffff;
+	background-color: #f15a5a; 
+	border-radius: 20px;
+}
+
+#search .search-items .search-btn:hover {
+	background: #fc6868;
+}
+
+#search .search-items .search-btn:active {
+	background: #f24949;
+}
+
+#enter {
+	display: block;
+	background-color: #f0f0f0;
+	border-radius: 20px; 
+}
+
+.page-content #enter .enter-items {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.page-content #enter .enter-items input {
+	font-size: 16px;
+	width: 300px;
+    padding: 5px 10px 5px 10px;
+	margin: 10px 0;
+	outline-color: #f15a5a;
+}
+
+.page-content #enter .enter-items .enter-name {
+	font-size: 30px; 
+	color: #f15a5a;
+	padding: 20px 100px 0 100px;
+	
+}
+
+.page-content #enter .enter-items .enter-info {
+	font-size: 16px; 
+	background-color: #ffd7d7; 
+	margin: 10px 0;
+	width: 100%;
+}
+
+#enter .enter-items .enter-info p {
+	padding: 5px 10px;
+}
+
+.page-content #enter .enter-items .enter-btn {
+	border: none;
+	outline: none;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 20px; 
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 5px 70px;
+	color: #ffffff;
+	background-color: #f15a5a; 
+	border-radius: 20px;
+}
+
+#enter .enter-items .enter-btn:hover {
+	background: #fc6868;
+}
+
+#enter .enter-items .enter-btn:active {
+	background: #f24949;
+}
