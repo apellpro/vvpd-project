@@ -1,12 +1,27 @@
 from django.db import models
 
 
+class YearGroup(models.Model):
+
+    class Meta:
+        verbose_name = 'Поток'
+        verbose_name_plural = 'Потоки'
+
+    name = models.CharField('Учебный год', max_length=30)
+    studying_year = models.IntegerField('Учебный год')
+    is_main = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
 
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
 
+    year_group = models.OneToOneField(YearGroup, on_delete=models.SET_NULL)
     name = models.CharField('Название проекта', max_length=30)
     github_link = models.CharField('Ссылка на GitHib проекта', max_length=300)
     check_statistic = models.FloatField('Статистика с момента последней проверки')
@@ -28,11 +43,11 @@ class Student(models.Model):
         verbose_name = 'Студент'
         verbose_name_plural = 'Студенты'
 
-    project = models.OneToOneField(Project, on_delete=models.CASCADE)
+    is_team_lead = models.BooleanField(default=False)
+    project = models.OneToOneField(Project, on_delete=models.CASCADE, null=True)
     name = models.CharField('Имя студента', max_length=30)
     surname = models.CharField('Фамилия студента', max_length=60)
-    patronymic = models.CharField('Отчество студента', max_length=60)
-    is_team_lead = models.BooleanField(default=False)
+    last_name = models.CharField('Отчество студента', max_length=60)
     group = models.CharField('Группа студента', max_length=20)
     form_of_education = models.CharField('Форма обучения', max_length=40)
     vk_link = models.CharField('Ссылка на VK студента', max_length=300)
@@ -42,15 +57,18 @@ class Student(models.Model):
         return self.name
 
 
-class YearGroup(models.Model):
+class ProjectStatistic(models.Model):
 
     class Meta:
-        verbose_name = 'Поток'
-        verbose_name_plural = 'Потоки'
+        verbose_name = 'Статистика проекта'
+        verbose_name_plural = 'Статистика проектов'
 
-    name = models.CharField('Учебный год', max_length=30)
-    studying_year = models.IntegerField('Учебный год')
-    is_main = models.BooleanField(default=False)
+    project = models.OneToOneField(Project, on_delete=models.CASCADE, null=True)
+    last_viewed = models.DateField('Момент последнего просмотра проекта')
+    open_tasks = models.IntegerField('Число открытых задач', default=0)
+    closed_tasks = models.IntegerField('число закрытых задач', default=0)
+    all_tasks_num = models.IntegerField('Число всех задач', default=0)
+    last_commit_hash = models.CharField('Хеш последнего коммита', max_length=40)
 
     def __str__(self):
         return self.name
