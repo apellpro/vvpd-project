@@ -1,31 +1,39 @@
 from requests import request
 
-def getUsersCommits(URL: str):
+def getUsersCommits(repo: str):
     payload={}
     headers = {}
-    return request("GET", URL + "commits", headers=headers, data=payload).json()
+    return len(request("GET", "https://api.github.com/repos/" + repo + "commits", headers=headers, data=payload).json())
 
-def getCommitBySHA(URL, sha: str):
+def getCommitBySHA(repo, sha: str):
     payload={}
     headers = {}
-    return request("GET", URL + "commits/" + sha, headers=headers, data=payload).json()
+    return request("GET", "https://api.github.com/repos/" + repo + "commits/" + sha, headers=headers, data=payload).json()
 
-def getCommitActivity(URL):
+def getCommitActivity(repo: str):
     payload={}
     headers = {}
-    return request("GET", URL + "stats/commit_activity" , headers=headers, data=payload).json()
+    return request("GET", "https://api.github.com/repos/" + repo + "stats/commit_activity" , headers=headers, data=payload).json()
 
-def getMetrics(URL: str):
+def getMetrics(repo: str):
     payload={}
     headers = {}
-    return request("GET", URL + "community/profile", headers=headers, data=payload).json()
+    return request("GET", "https://api.github.com/repos/" + repo + "community/profile", headers=headers, data=payload).json()
 
-def getIssues(URL: str):
+def getIssuesNum(repo: str):
     payload={}
     headers = {}
-    return request("GET", URL + "issues", headers=headers, data=payload).json()
+    issues_num = (request("GET", "https://api.github.com/" + "search/issues?q=repo:" + repo, headers=headers, data=payload).json())["total_count"]
+    open_issues_num = (request("GET", "https://api.github.com/" + "search/issues?q=repo:" + repo + "+state:open", headers=headers, data=payload).json())["total_count"]
+    return issues_num, open_issues_num
 
-def getReleases(URL: str):
+def getOpenedIssues(repo: str):
     payload={}
     headers = {}
-    return request("GET", URL + "releases", headers=headers, data=payload).json()
+    issues = request("GET", "https://api.github.com/" + "search/issues?q=repo:" + repo + "+state:open", headers=headers, data=payload).json()
+    return issues
+
+def getReleases(repo: str):
+    payload={}
+    headers = {}
+    return request("GET", "https://api.github.com/repos/" + repo + "releases", headers=headers, data=payload).json()
