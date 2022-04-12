@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
 </head>
 <body>
-    There should be some projects. <br>
-    <a href="{% url 'home' %}">You may go back to homepage.</a>
+    <p>Успешная авторизация под пользователем {{ request.user }}</p>
+    <a href="{% url 'logout' %}">Выйти</a>
 </body>
 </html>

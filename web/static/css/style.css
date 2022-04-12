@@ -1,5 +1,5 @@
 * {
-	font-family: Bahnschrift;
+	font-family: 'Bahnschrift', serif;
 	font-style: normal;
 	margin: 0;
 	padding: 0;
@@ -67,7 +67,7 @@ body .page-content {
 #search:target {
 	display: block;
 	background-color: #f0f0f0;
-	border-radius: 20px; 
+	border-radius: 20px;
 }
 
 #search:target ~ #enter {
@@ -95,14 +95,14 @@ body .page-content {
 }
 
 .page-content #search .search-items .search-name {
-	font-size: 30px; 
+	font-size: 30px;
 	color: #f15a5a;
 	padding: 20px 60px 0 60px;
 }
 
 .page-content #search .search-items .search-info {
-	font-size: 16px; 
-	background-color: #ced2eb; 
+	font-size: 16px;
+	background-color: #ced2eb;
 	margin: 10px 0;
 	width: 100%;
 }
@@ -120,12 +120,12 @@ body .page-content {
 	outline: none;
 	display: inline-block;
 	cursor: pointer;
-	font-size: 20px; 
+	font-size: 20px;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	padding: 5px 70px;
 	color: #ffffff;
-	background-color: #f15a5a; 
+	background-color: #f15a5a;
 	border-radius: 20px;
 }
 
@@ -140,7 +140,7 @@ body .page-content {
 #enter {
 	display: block;
 	background-color: #f0f0f0;
-	border-radius: 20px; 
+	border-radius: 20px;
 }
 
 .page-content #enter .enter-items {
@@ -159,15 +159,15 @@ body .page-content {
 }
 
 .page-content #enter .enter-items .enter-name {
-	font-size: 30px; 
+	font-size: 30px;
 	color: #f15a5a;
 	padding: 20px 100px 0 100px;
-	
+
 }
 
 .page-content #enter .enter-items .enter-info {
-	font-size: 16px; 
-	background-color: #ffd7d7; 
+	font-size: 16px;
+	background-color: #ffd7d7;
 	margin: 10px 0;
 	width: 100%;
 }
@@ -181,12 +181,12 @@ body .page-content {
 	outline: none;
 	display: inline-block;
 	cursor: pointer;
-	font-size: 20px; 
+	font-size: 20px;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	padding: 5px 70px;
 	color: #ffffff;
-	background-color: #f15a5a; 
+	background-color: #f15a5a;
 	border-radius: 20px;
 }
 

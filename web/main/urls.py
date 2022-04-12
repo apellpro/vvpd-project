@@ -3,7 +3,10 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.homepage, name='home'),
-    path('projects/', views.projects, name='projects'),
-    path('info/', views.get_some_information)
+    path('', views.home, name='home'),
+    path('logout/', views.auth_logout, name='logout'),
+    path('projects/', views.projects_list, name='projects'),
+    path('review/<str:git_user>/<str:git_repo>',
+         views.project_review, name='review'
+         )
 ]

@@ -31,10 +31,14 @@ def get_issues_num(owner, repo: str):
     issues = request("GET", f"https://api.github.com/search/issues?q=repo:{owner}/{repo}", headers=headers, data=payload).json()
     issues_num = issues["total_count"]
     open_issues_num = 0
-    for i in issues:
+    for i in issues['items']:
         if i["state"] == "open":
             open_issues_num += 1
-    return issues_num, open_issues_num
+    return {
+        'total': issues_num,
+        'opened': open_issues_num,
+        'closed': issues_num - open_issues_num
+    }
 
 
 def get_opened_issues(owner, repo: str):

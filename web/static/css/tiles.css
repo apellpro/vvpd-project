@@ -1,0 +1,280 @@
+.tile
+{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border: 1px dotted black;
+    margin: 10px;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+.wide-tile
+{
+    width: 550px;
+}
+
+/* MAIN TILE ------------------- */
+
+.main-tile
+{}
+.main-tile p.project-name
+{
+    flex: 0 0 4em;
+    padding: 10px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4em;
+}
+.main-tile div.student
+{
+    position: relative;
+    flex: 1 0 2.3em;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    font-weight: 400;
+}
+.main-tile div.student div.color-mark
+{
+    height: 80%;
+    width: 8px;
+    margin-right: 15px;
+    transition: .3s;
+}
+.main-tile div label:hover
+{
+    cursor: pointer;
+    font-weight: 600;
+}
+.main-tile div.student input[type=radio],
+.main-tile div.cancel input[type=radio]
+{
+    display: none;
+}
+.main-tile div.student input[type=radio]:checked ~ div.color-mark
+{
+    width: 20px;
+}
+.main-tile div.student input[type=radio]:checked ~ label
+{
+    font-weight: 600;
+}
+.main-tile div.cancel
+{
+    flex: 0 0 2.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+.main-tile div.cancel label
+{
+    display: flex;
+    align-items: center;
+    color: red;
+}
+.main-tile div.cancel p.info
+{
+    color: dimgrey;
+    display: none;
+    font-size: 10px;
+    text-align: center;
+}
+.main-tile div.cancel input:checked ~ p
+{
+    display: block;
+}
+.main-tile div.cancel input:checked ~ label
+{
+    display: none;
+}
+.main-tile div.cancel i.bx {font-size: 24px;}
+
+/* TASKS TILE ------------------- */
+
+.tasks-tile
+{}
+.tasks-tile p.title
+{
+    font-size: 32px;
+    line-height: 60px;
+    font-weight: 600;
+    flex: 0 0 60px;
+    text-align: center;
+}
+.tasks-tile p.count
+{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tasks-tile p.count span.tasks-number
+{
+    font-size: 1.5em;
+    margin-left: .25em;
+    font-weight: 600;
+}
+.tasks-tile p.count span.info
+{
+    font-weight: 400;
+    font-size: 12px;
+}
+.tasks-tile p.open-count {color: green;}
+.tasks-tile p.close-count {color: blue;}
+.tasks-tile p.open-count {color: green;}
+
+/* COMMITS TILE ------------------- */
+
+.commits-tile
+{}
+.commits-tile div.tile-header
+{
+    flex: 0 0 48px;
+}
+.commits-tile div.tile-header p.title
+{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 48px;
+    margin-left: 1em;
+}
+.commits-tile div.commit
+{
+    position: relative;
+    flex: 1 0 auto;
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+}
+.commits-tile div.commit span.commit-description
+{
+    flex: 400px;
+}
+.commits-tile div.commit span.commit-date
+{
+    flex: 90px;
+    font-size: 12px;
+    font-weight: 600;
+}
+/*.commits-tile div.commit:not(.last):after*/
+/*{*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+/*    width: 80%;*/
+/*    border-bottom: 1px dotted black;*/
+/*}*/
+.commits-tile div.commit:before
+{
+    z-index: 2;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 5px solid var(--user-color);
+}
+.commits-tile div.other-commits
+{
+    flex: 0 0 30px;
+}
+.commits-tile div.other-commits p
+{
+    margin-left: 45px;
+    font-size: 12px;
+    color: dimgrey;
+}
+.commits-tile div.commit-line
+{
+    position: absolute;
+    left: 28px;
+    top: 78px;
+    height: 220px;
+    width: 3px;
+    background: black;
+}
+.commits-tile:hover::after
+{
+    content: "Нажмите на плитку для просмотра информации о всех коммитах";
+    position: absolute;
+    bottom: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    width: 90%;
+    text-align: center;
+}
+
+/* IMPACT TILE -------------------------- */
+.impact-tile
+{}
+.impact-tile p.title
+{
+    height: 2em;
+    line-height: 2em;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+.impact-tile canvas
+{
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    animation: rotate 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotate
+{
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+/* RELEASE TILE ---------------------- */
+
+.release-tile
+{}
+.release-tile p.title
+{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    flex: 0 0 60px;
+    line-height: 60px;
+}
+.release-tile div.no-releases
+{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.release-tile div.no-releases img
+{
+    width: 85%;
+}
+.release-tile div.no-releases p
+{
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* GRAPHIC TILE ------------------------------- */
+
+.graphic-tile
+{
+
+}

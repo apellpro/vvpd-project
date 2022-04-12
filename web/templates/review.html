@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    {% load static %}
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tiles.css' %}">
+</head>
+<body>
+    <div class="header"></div>
+    <div class="dashboard">
+        <div class="tile main-tile">
+            <p class="project-name">Мониторинг успешности проектов</p>
+            <div class="student">
+                <input type="radio" name="student" id="s1">
+                <div class="color-mark" style="background: red;"></div>
+                <label for="s1">Дмитрий Надобных</label>
+            </div>
+            <div class="student">
+                <input type="radio" name="student" id="s2">
+                <div class="color-mark" style="background: blue;"></div>
+                <label for="s2">Даниил Присяжнюк</label>
+            </div>
+            <div class="student">
+                <input type="radio" name="student" id="s3">
+                <div class="color-mark" style="background: green;"></div>
+                <label for="s3">Даниил Шинкаренко</label>
+            </div>
+            <div class="student">
+                <input type="radio" name="student" id="s4">
+                <div class="color-mark" style="background: orange;"></div>
+                <label for="s4">Валерия Хабибрахманова</label>
+            </div>
+            <div class="cancel">
+                <input type="radio" name="student" id="s0" checked>
+                <label for="s0">
+                    <i class='bx bx-x'></i><span>Отмена</span>
+                </label>
+                <p class="info">
+                    Вы можете нажать на имя студента для просмотра конкретизированной информации
+                </p>
+            </div>
+        </div>
+        <div class="tile impact-tile">
+            <p class="title">Статистика</p>
+            <canvas id="impact-circle" width="200" height="200"></canvas>
+        </div>
+        <div class="tile tasks-tile">
+            <p class="title">
+                Задачи
+            </p>
+            <p class="count open-count">
+                <span>Открытых задач: <span class="tasks-number">{{ issues.opened }}</span></span>
+                <span class="info">+4 за последние 2 недели</span>
+            </p>
+            <p class="count close-count">
+                <span>Закрытых задач: <span class="tasks-number">{{ issues.closed }}</span></span>
+                <span class="info">+4 за последние 2 недели</span>
+            </p>
+            <p class="count alltime-count">
+                <span>Задач за всё время: <span class="tasks-number">{{ issues.total }}</span></span>
+            </p>
+            <p class="count free-space"></p>
+        </div>
+        <div class="tile wide-tile commits-tile">
+            <div class="tile-header">
+                <p class="title">Коммиты</p>
+            </div>
+            <div class="commit" style="--user-color: red;">
+                <span class="commit-description">Добавлены файлы (другие) </span>
+                <span class="commit-date">03.04.2022 17:45</span>
+            </div>
+            <div class="commit" style="--user-color: green;">
+                <span class="commit-description">Добавлены файлы</span>
+                <span class="commit-date">03.04.2022 17:40</span>
+            </div>
+            <div class="commit" style="--user-color: orange;">
+                <span class="commit-description">Хотфикс</span>
+                <span class="commit-date">03.04.2022 13:45</span>
+            </div>
+            <div class="commit" style="--user-color: blue;">
+                <span class="commit-description">Очень длинное описание коммита вот прям нужно чтобы тут было 79 символов жесть!</span>
+                <span class="commit-date">01.04.2022 22:22</span>
+            </div>
+            <div class="commit" style="--user-color: red;">
+                <span class="commit-description">Update README.md</span>
+                <span class="commit-date">28.03.2022 01:46</span>
+            </div>
+            <div class="other-commits">
+                <p>и ещё 5 коммитов</p>
+            </div>
+            <div class="commit-line"></div>
+        </div>
+        <div class="tile wide-tile graphic-tile">
+            <div class="tile-header">
+                <p class="title">Графики</p>
+            </div>
+        </div>
+        <div class="tile release-tile">
+            <p class="title">Релизы</p>
+            <div class="release-list hidden"></div>
+            <div class="no-releases">
+                <img src="{% static 'img/sadcat.png' %}" alt="There is very sad cat">
+                <p>Команда ещё не сделала ни одного релиза</p>
+            </div>
+        </div>
+        <div class="tile delta-tile"></div>
+        <div class="tile rating-tile"></div>
+    </div>
+</body>
+<script src="{% static 'js/impact-tile.js' %}"></script>
+</html>
