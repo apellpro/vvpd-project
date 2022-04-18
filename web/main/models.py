@@ -1,74 +1,74 @@
-from django.db import models
+from django.db import models, transaction
+from django.contrib.auth.models import User
 
 
 class YearGroup(models.Model):
-
     class Meta:
         verbose_name = 'Поток'
         verbose_name_plural = 'Потоки'
 
-    name = models.CharField('Учебный год', max_length=30)
-    studying_year = models.IntegerField('Учебный год')
-    is_main = models.BooleanField(default=False)
+    name = models.CharField('Название', max_length=32)
+    studying_year = models.PositiveSmallIntegerField('Учебный год')
+    is_main = models.BooleanField('Сделать основным', default=False)
 
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.is_main:
+            return super(YearGroup, self).save(*args, **kwargs)
+        with transaction.atomic():
+            YearGroup.objects.filter(is_main=True).update(is_main=False)
+            return super(YearGroup, self).save(*args, **kwargs)
+
 
 class Project(models.Model):
-
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
 
-    year_group = models.OneToOneField(YearGroup, on_delete=models.SET_NULL)
-    name = models.CharField('Название проекта', max_length=30)
-    github_link = models.CharField('Ссылка на GitHib проекта', max_length=300)
-    check_statistic = models.FloatField('Статистика с момента последней проверки')
-    new_commits_num = models.PositiveIntegerField('Количество новых коммитов')
-    open_tasks_num = models.PositiveIntegerField('Количество открытых задач')
-    tasks_in_progress_num = models.PositiveIntegerField('Количество задач в работе')
-    closed_tasks_num = models.PositiveIntegerField('Количество закрытых задач')
-    last_release_num = models.PositiveIntegerField('Номер последнего релиза', default='')
-    rating = models.DecimalField('Рейтинг проекта', decimal_places=2, max_digits=2)
-    week_lines_progress = models.IntegerField('Количество удалений и добавлений строк за неделю')
+    name = models.CharField('Название проекта', max_length=128)
+    github_slug = models.CharField('Репозиторий', max_length=128)  # e.g. 'apellpro/vvpd-project'
+
+    year_group = models.ForeignKey('YearGroup', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 
 class Student(models.Model):
-
     class Meta:
         verbose_name = 'Студент'
         verbose_name_plural = 'Студенты'
 
-    is_team_lead = models.BooleanField(default=False)
-    project = models.OneToOneField(Project, on_delete=models.CASCADE, null=True)
-    name = models.CharField('Имя студента', max_length=30)
-    surname = models.CharField('Фамилия студента', max_length=60)
-    last_name = models.CharField('Отчество студента', max_length=60)
-    group = models.CharField('Группа студента', max_length=20)
-    form_of_education = models.CharField('Форма обучения', max_length=40)
-    vk_link = models.CharField('Ссылка на VK студента', max_length=300)
-    github_link = models.CharField('Ссылка на GitHib студента', max_length=300)
+    firstname = models.CharField('Имя', max_length=32)
+    surname = models.CharField('Фамилия', max_length=32)
+    patronymic = models.CharField('Отчество', max_length=32, blank=True)
+    education_group = models.CharField('Группа студента', max_length=32)
+    education_type = models.CharField('Форма обучения', max_length=32)
+    github_username = models.CharField('Имя пользователя GitHub', max_length=32)
+    vk_uid = models.CharField('ID пользователя VK', max_length=32)
+    is_leader = models.BooleanField('Сделать лидером команды')
+
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f'{self.surname} {self.firstname} {self.patronymic} ' \
+               f'{"★" if self.is_leader else ""}'
+
+    def save(self, *args, **kwargs):
+        if not self.is_leader:
+            return super(Student, self).save(*args, **kwargs)
+        with transaction.atomic():
+            Student.objects.filter(
+                project=self.project, is_leader=True
+            ).update(is_leader=False)
+            return super(Student, self).save(*args, **kwargs)
 
 
-class ProjectStatistic(models.Model):
+class Tag(models.Model):
+    text = models.CharField('Текст тэга', max_length=32),
+    background_color = models.CharField('Цвет фона', max_length=7)
+    text_color = models.CharField('Цвет текста', max_length=7)
 
-    class Meta:
-        verbose_name = 'Статистика проекта'
-        verbose_name_plural = 'Статистика проектов'
-
-    project = models.OneToOneField(Project, on_delete=models.CASCADE, null=True)
-    last_viewed = models.DateField('Момент последнего просмотра проекта')
-    open_tasks = models.IntegerField('Число открытых задач', default=0)
-    closed_tasks = models.IntegerField('число закрытых задач', default=0)
-    all_tasks_num = models.IntegerField('Число всех задач', default=0)
-    last_commit_hash = models.CharField('Хеш последнего коммита', max_length=40)
-
-    def __str__(self):
-        return self.name
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
