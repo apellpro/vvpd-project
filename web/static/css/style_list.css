@@ -1,63 +1,13 @@
-* {
-	font-family: Bahnschrift;
-	font-style: normal;
-	margin: 0;
-	padding: 0;
-}
 
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #D7CBCB;
-	height: 100vh;
-}
 
-body .side-btns {
-	display: flex;
-	flex-direction: column;
-	flex: 0 0 60px;
-}
-
-body .side-btns a {
-	display: flex;
-	flex: 0 0 50px;
-	align-items: center;
-	justify-content: center;
-	text-decoration: none;
-	background: #fff;
-	color: #ff4500;
-	font-size: 20px;
-	border-radius: 15px;
-	margin: 10px 5px 0;
-}
-
-body .side-btns a:hover {
-	box-shadow: 0 0 10px 0 #ff6127;
-}
-
-body .side-btns a:active {
-	box-shadow: 0 0 10px 0 #ff4500;
-}
-
-body .main-form {
-	display: flex;
-	flex: 0 1 700px;
-	flex-direction: column;
-	margin: 0 10px;
-	background: #fff;
-	border-radius: 15px;
-	height: 95%;
-}
-
-body .main-form .up-part {
+body .workspace .up-part {
 	display: flex;
 	align-items: center;
 	border-bottom: #000 1px solid;
 	height: 50px;
 }
 
-body .main-form .up-part .search {
+body .workspace .up-part .search {
 	flex: 1 0 auto;
 	display: flex;
 	align-items: center;
@@ -65,7 +15,7 @@ body .main-form .up-part .search {
 	margin: 0 0 0 10px;
 }
 
-body .main-form .up-part .search input {
+body .workspace .up-part .search input {
 	flex: 1 0 10px;
 	border: none;
 	outline: none;
@@ -75,7 +25,7 @@ body .main-form .up-part .search input {
 	margin-top: 3px;
 }
 
-body .main-form .up-part .search .search-btn {
+body .workspace .up-part .search .search-btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -96,7 +46,7 @@ body .main-form .up-part .search .search-btn {
 	box-shadow: 0 0 4px 0 #ff4500;
 }
 
-body .main-form .up-part .tag-choice {
+body .workspace .up-part .tag-choice {
 	border: #ff4500 1px solid;
 	outline: none;
 	border-radius: 15px;
@@ -106,7 +56,7 @@ body .main-form .up-part .tag-choice {
 	background: #fff;
 }
 
-body .main-form .down-part {
+body .workspace .down-part {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -115,16 +65,16 @@ body .main-form .down-part {
 	height: 50px;
 }
 
-body .main-form .down-part .year-part {
+body .workspace .down-part .year-part {
 	display: flex;
 	align-items: center;
 }
 
-body .main-form .down-part .text-found {
+body .workspace .down-part .text-found {
 	font-size: 18px;
 }
 
-body .main-form .down-part .year-part .checkbox {
+body .workspace .down-part .year-part .checkbox {
 	margin: 0 5px 0 0;
 	color: #636363;
 }
@@ -133,7 +83,7 @@ body .main-form .down-part .year-part .checkbox {
 	cursor: pointer;
 }
 
-body .main-form .down-part .year-part .year-choice {
+body .workspace .down-part .year-part .year-choice {
 	border: solid 1px #ff4500;
 	border-radius: 15px;
 	outline: none;
@@ -142,7 +92,7 @@ body .main-form .down-part .year-part .year-choice {
 	background: #fff;
 }
 
-body .main-form .main-part {
+body .workspace .main-part {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -150,11 +100,11 @@ body .main-form .main-part {
 	overflow-y:auto;
 }
 
-body .main-form .main-part .project:last-child {
+body .workspace .main-part .project:last-child {
 	border-bottom: none;
 }
 
-body .main-form .main-part .project {
+body .workspace .main-part .project {
 	border-bottom: #000 1px solid;
 	display: flex;
 	flex-direction: column;
@@ -163,57 +113,38 @@ body .main-form .main-part .project {
 	padding: 10px;
 }
 
-body .main-form .main-part .project .names {
+body .workspace .main-part .project .names {
 	color: #aaa;
 	margin-bottom: 4px;
 }
 
-body .main-form .main-part .project .git {
+body .workspace .main-part .project .git {
 	color: #aaa;
 	margin-top: 4px;
 }
 
-body .main-form .main-part .project p span {
+body .workspace .main-part .project p span {
 	display: inline-block;
 }
 
-body .main-form .main-part .project a {
+body .workspace .main-part .project a {
 	text-decoration: none;
 	font-size: 22px;
 	color: #000;
 }
 
-body .main-form .main-part .project a:hover {
+body .workspace .main-part .project a:hover {
 	text-decoration: underline;
 	text-decoration-color: #ff4500;
 }
 
-body .main-form .main-part .tags {
-	display: flex;
-	flex-wrap: wrap;
+body .workspace .main-part .tags {
 	margin: 10px 10px 0 0;
 }
 
-
-body .main-form .main-part .tags .tag {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 15px;
-	font-size: 14px;
+body .workspace .main-part .tags .tag {
 	margin: 0 5px 5px 0;
 	padding: 2px 10px;
-}
-
-body .space {
-	flex: 0 100 60px;
-}
-
-.win-overlay {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background: rgba(0, 0, 0, 0.3);
 }
 
 body #win-year, #win-project {
@@ -240,7 +171,7 @@ body #win-year .year-items {
 }
 
 body #win-year .year-items .name {
-	margin: 10px 0 0 20px;
+	padding: 10px 0 0 20px;
 }
 
 body #win-year .year-items .enter-year {
@@ -258,36 +189,11 @@ body #win-year .year-items .checkbox {
 }
 
 body .btns{
-	display: flex;
-	justify-content: flex-end;
 	margin: 0 10px 10px 0;
 }
 
-body .btns a {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: none;
-	border-radius: 15px;
-	outline: none;
-	text-decoration: none;
-	color: #fff;
-	font-size: 18px;
-	background: #ff4500;
-	padding: 5px 0;	
-	width: 100px;
-}
-
-body #win-year .year-items .btns a {
+body #win-year .year-items .btns * {
 	margin: 0 10px 0 0;
-}
-
-body .btns a:hover {
-	background: #ff6127;
-}
-
-body .btns a:active {
-	background: #ff4500;
 }
 
 body #win-project .project-items {
@@ -308,16 +214,10 @@ body #win-project .project-items .name {
 	border-bottom: #ff4500 2px solid;
 }
 
-body #win-project .project-items .project, .students {
+body #win-project .project-items .project, .students, .students-up-part {
 	display: flex;
 	flex-direction: column;
 	margin: 0 30px 0 30px;
-}
-
-body #win-project .project-items .input-box {
-	display: flex;
-	position: relative;
-	width: 100%;
 }
 
 body #win-project .project-items .input-box input {
@@ -335,11 +235,7 @@ body #win-project .project-items .project .input-box input {
 }
 
 body #win-project .project-items .input-box label {
-    pointer-events: none;
-    position: absolute;
-    transition: all 250ms;
     margin: 17px 0 0 10px;
-	color: #9f9f9f;
 }
 
 body #win-project .project-items .students .input-box label {
@@ -361,19 +257,19 @@ body #win-project .project-items .students .input-box input:not(:placeholder-sho
     margin: -5px 0 0 20px;
 }
 
-body #win-project .project-items .students .list-name {
+body #win-project .project-items .students-up-part .list-name {
 	font-size: 18px;
 	border-bottom: #ff4500 1px solid;
 	margin-top: 10px;
 }
 
-body #win-project .project-items .students .menu {
+body #win-project .project-items .students-up-part .menu {
 	display: flex;
 	justify-content: flex-end;
 	margin: -1px 0 0 0;
 }
 
-body #win-project .project-items .students .menu a {
+body #win-project .project-items .students-up-part .menu a {
 	line-height: 28px;
 	text-decoration: none;
 	border: #ff4500 1px solid;
@@ -383,20 +279,24 @@ body #win-project .project-items .students .menu a {
 	color: #000;
 }
 
-body #win-project .project-items .students .menu a i {
+body #win-project .project-items .students-up-part .menu a i {
 	margin-left: 5px;
 	color: gold;
 }
 
-.students .menu a:hover, #student-1 .up button:hover {
+body #win-project .project-items .students > div:not(.active) {
+	display: none;
+}
+
+body #win-project .project-items .students-up-part .menu a:hover, button:hover {
 	box-shadow: 0 0 4px 0 #ff6127;
 }
 
-.students .menu a:active,  #student-1 .up button:active {
+body #win-project .project-items .students-up-part .menu a:active, button:active {
 	box-shadow: 0 0 4px 0 #ff4500;
 }
 
-body #win-project .project-items .students #student-1 {
+body #win-project .project-items .students .active {
 	display: flex;
 	flex-direction: column;
 	border: #ff6127 1px dashed;
@@ -404,13 +304,13 @@ body #win-project .project-items .students #student-1 {
 	margin: 10px 0;
 }
 
-body #win-project .project-items .students #student-1 .up {
+body #win-project .project-items .students .active .up {
 	display: flex;
 	justify-content: space-between;
 	margin: 10px 0 0 10px;
-}
+} 
 
-#student-1 .up button {
+body #win-project .project-items .students .active .up button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -445,7 +345,7 @@ body #win-project .project-items .students .input-box input {
 	margin-bottom: 10px;
 }
 
-body #win-project .project-items .btns a {
+body #win-project .project-items .btns * {
 	font-size: 18px;
 	margin: 0 20px 0 0;
 }

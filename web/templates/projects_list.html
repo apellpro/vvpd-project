@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, shrink-to-fit=no" />
+		<title>Мониторинг Успешности Проектов</title>
+		<link rel="stylesheet" href="style_list.css" type="text/css">
+		<link rel="stylesheet" href="style_common.css" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+	</head>
+	<body onload="updateProjectList()">
+		<div class="side-btns">
+			<a href="#win-project"><i class="fas fa-plus"></i></a>
+			<a href="#win-year"><i class="far fa-calendar-plus"></i></a>
+			<a href="#"><i class="fas fa-user-cog"></i></a>
+			<a href="personal_area.html"><i class="fas fa-user"></i></a>
+			<a href="main_page.html"><i class="fas fa-door-closed"></i></a>
+		</div>
+		<div class="workspace">
+			<div class=" up-part">
+				<div class="search">
+					<input id="search-input" type="text" placeholder="Поиск" name="search">
+					<button id="search-btn" class="search-btn" onclick="updateProjectList()"><i class="fas fa-search"></i></button>
+				</div>
+				<select class="tag-choice" name="tag-select" id="tag-select" onchange="updateProjectList()">
+					<option value="Все тэги">Все тэги</option>
+					<option value="Tag1">Tag 1</option>
+					<option value="Tag2">Tag 2</option>
+					<option value="Tag3">Tag 3</option>
+					<option value="Tag4">Tag 4</option>
+				</select>
+			</div>
+			<div class="main-part">
+
+			</div>
+			<div class="down-part">
+				<p class="text-found">
+					Найдено <span id="found-amount">N</span> проектов 
+				</p>
+				<div class="year-part">
+					<div class="checkbox">
+					<input type="checkbox" id="main-year-group" disabled checked>
+					<label for="main-year-group">Основной поток</label>
+					</div>
+					<select class="year-choice" name="year-select" id="year-select" onchange="updateProjectList()">
+						<option value="2021/2022" checked="">2021/2022</option>
+						<option value="2020/2021">2020/2021</option>
+						<option value="2019/2020">2019/2020</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="space"></div>
+		<form id="win-year" action="#" method="post">
+			<a href="projects_list.html" class="win-overlay"></a>
+			<div class="year-items">
+				<p class="name">Название потока</p>
+				<input class="enter-year" type="text" placeholder="Например 2020/2021" name="enter-year">
+				<div class="checkbox">
+					<input type="checkbox" id="do-main-year-group" name="do-main-year-group">
+					<label for="do-main-year-group" class="main-year">Сделать поток основным</label>
+				</div>
+				<div class="btns">
+					<input type="submit" value="Добавить">
+					<a href="projects_list.html">Отмена</a>
+				</div>
+		    </div>
+		</form>
+		<form id="win-project" action="#" method="post">
+			<a href="projects_list.html" class="win-overlay"></a>
+			<div class="project-items">
+				<p class="name">Новый проект</p>
+				<div class="project">
+					<div class="input-box">
+						<input type="text" placeholder=" " name="project-name">
+						<label>Название проекта</label>
+					</div>
+					<div class="input-box">
+						<input type="text" placeholder=" " name="git-link">
+						<label>Ссылка на репозиторий</label>
+					</div>
+				</div>
+				<div class="students-up-part">
+					<p class="list-name">Список студентов</p>
+					<div class="menu">
+						<a href="#win-project" class="student-num">1<i class="fas fa-crown"></i></a>
+						<a href="#win-project" class="student-num">2</a>
+						<a href="#win-project" id="new-student">+</a>
+					</div>
+				</div>
+				<div class="students">
+					<div id="student-1" class="active">
+						<div class="up">
+							<p class="num">Студент <span>1</span></p>
+							<button class="delete"><i class="fas fa-trash-alt"></i></button>
+						</div>
+						<div class="FIO">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-surname">
+								<label>Фамилия</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-name">
+								<label>Имя</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-patronymic">
+								<label>Отчество</label>
+							</div>
+						</div>
+						<div class="study">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-group">
+								<label>Группа</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-edu">
+								<label>Форма обучения</label>
+							</div>
+						</div>
+						<div class="social">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-vk">
+								<label>VK</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-git">
+								<label>GitHub</label>
+							</div>
+						</div>
+					</div>
+					<div id="student-2">
+						<div class="up">
+							<p class="num">Студент <span>2</span></p>
+							<button class="delete"><i class="fas fa-trash-alt"></i></button>
+						</div>
+						<div class="FIO">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-surname">
+								<label>Фамилия</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-name">
+								<label>Имя</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-patronymic">
+								<label>Отчество</label>
+							</div>
+						</div>
+						<div class="study">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-group">
+								<label>Группа</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-edu">
+								<label>Форма обучения</label>
+							</div>
+						</div>
+						<div class="social">
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-vk">
+								<label>VK</label>
+							</div>
+							<div class="input-box">
+								<input type="text" placeholder=" " name="stud-git">
+								<label>GitHub</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="btns">
+					<input type="submit" value="Добавить">
+					<a href="projects_list.html">Отмена</a>
+				</div>
+			</div>
+		</form>
+		<script src="search.js"></script>
+	</body>
+</html>
+	

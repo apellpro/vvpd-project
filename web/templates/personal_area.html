@@ -1,0 +1,85 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, shrink-to-fit=no" />
+		<title>Личный кабинет</title>
+		<link rel="stylesheet" href="style_area.css" type="text/css">
+		<link rel="stylesheet" href="style_common.css" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+	</head>
+	<body>
+		<div class="side-btns">
+			<a href="projects_list.html"><i class="fa fa-arrow-left"></i></a>
+			<a href="#"><i class="fas fa-user-cog"></i></a>
+			<a href="main_page.html"><i class="fas fa-door-closed"></i></a>
+		</div>
+		<div class="workspace">
+			<p class="name"><strong>Nickname</strong></p>
+			<p class="my-tags">Мои тэги:</p>
+			<div class="tags">
+				<div class="tag" style="background: #FCA3A3">
+					<span>Tag 1</span>
+					<button class="delete"><i class="fa fa-times"></i></button>
+				</div>
+				<div class="tag" style="background: #2BBD77">
+					<span>Tag 2</span>
+					<button class="delete"><i class="fa fa-times"></i></button>
+				</div>
+				<div class="tag" style="background: #FCA303">
+					<span>Tag 3</span>
+					<button class="delete"><i class="fa fa-times"></i></button>
+				</div>
+				<a href="#win-tag" class="new-tag">+</a>
+			</div> 
+			<p class="change-pas-text">Смена пароля:</p>
+			<div class="input-box">
+				<input type="text" placeholder=" ">
+				<label>Введите старый пароль</label>
+			</div>
+			<div class="input-box">
+				<input type="text" placeholder=" ">
+				<label>Введите новый пароль</label>
+			</div>
+			<div class="input-box">
+				<input type="text" placeholder=" ">
+				<label>Повторите новый пароль</label>
+			</div>
+			<input class="change-pas" type="submit" value="Сменить пароль">
+		</div>
+		<div class="space"></div>
+		<form id="win-tag" action="#" method="post">
+			<a href="personal_area.html" class="win-overlay"></a>
+			<div class="tag-items">
+				<p class="name">Настройки нового тэга: </p>
+				<div class="colors">
+					<div class="color-tag">
+						<input type="color" name="back-color"
+							   value="#FCA3A3" 
+							   oninput="document.getElementById('tagExample').style.background = this.value;" >
+						<label>Фон</label>
+					</div>
+					<div class="color-tag">
+						<input type="color" name="text-color"
+								value="#000"
+								oninput="document.getElementById('tagExample').style.color = this.value;">
+						<label>Текст</label>
+					</div>
+				</div>
+				<div class="input-box">
+				<input type="text" placeholder=" " name="text-tag" autocomplete="off"
+					oninput="document.getElementById('tagExample').innerText = this.value;"
+					maxlength="32">
+				<label>Текст тэга</label>
+				</div>
+				<div class="example-tag" style="background: #FCA3A3" id='tagExample'>
+					<span>Текст тэга</span>
+				</div>
+				<div class="btns">
+					<input type="submit" value="Добавить">
+					<a href="personal_area.html">Отмена</a>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>
