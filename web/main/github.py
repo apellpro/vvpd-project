@@ -2,7 +2,7 @@ from requests import request
 from datetime import *
 
 
-def get_commits(owner, repo, contributer_login):
+def get_commits(owner, repo, contributer_login = ""):
     """Функция возвращает все коммиты проекта
     или коммиты конкретного пользователя
     с подробной информацией в виде словаря
@@ -23,8 +23,9 @@ def get_commits(owner, repo, contributer_login):
         return commits
     contributer_commits = []
     for commit in commits:
-        if commit["author"] == contributer_login:
+        if commit["author"]["login"] == contributer_login:
             contributer_commits.append(commit)
+    return contributer_commits
 
 
 def get_project_delta(owner, repo):
@@ -172,7 +173,7 @@ def get_releases(owner, repo):
         repo (str): название репозитория
 
     Returns:
-        dict: key (str) - нзвание, value (str) - дата
+        dict: key (str) - название, value (str) - дата
     """
     payload = {}
     headers = {}
@@ -181,3 +182,21 @@ def get_releases(owner, repo):
     for i in imported_releases:
         releases[i["name"]] = i["created_at"]
     return releases
+
+
+def get_commits_per_weeks(owner, repo):
+    """Функция возвращает список из количеств
+    коммитов за последние 10 недель
+
+    Args:
+        owner (str): владелец репозитория
+        repo (str): название репозитория
+
+    Returns:
+        weeks (list[int]): колличество коммитов
+    """
+    payload = {}
+    headers = {}
+    imported_weeks = request("GET", f"https://api.github.com/repos/{owner}/{repo}/stats/participation", headers=headers, data=payload).json()
+    weeks = imported_weeks['all'][-10::]
+    return weeks
