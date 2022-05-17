@@ -178,9 +178,9 @@ def get_releases(owner, repo):
     payload = {}
     headers = {}
     imported_releases = request("GET", f"https://api.github.com/repos/{owner}/{repo}/releases", headers=headers, data=payload).json()
-    releases = dict()
+    releases = []
     for i in imported_releases:
-        releases[i["name"]] = i["created_at"]
+        releases.append([[i["name"]], i["created_at"]])
     return releases
 
 
