@@ -4,8 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, shrink-to-fit=no" />
 		<title>Мониторинг Успешности Проектов</title>
-		<link rel="stylesheet" href="style_list.css" type="text/css">
-		<link rel="stylesheet" href="style_common.css" type="text/css">
+        {% load static %}
+		<link rel="stylesheet" href="{% static 'css/style_list.css' %}" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/style_common.css' %}" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
 	</head>
 	<body onload="updateProjectList()">
@@ -24,10 +25,13 @@
 				</div>
 				<select class="tag-choice" name="tag-select" id="tag-select" onchange="updateProjectList()">
 					<option value="Все тэги">Все тэги</option>
-					<option value="Tag1">Tag 1</option>
-					<option value="Tag2">Tag 2</option>
-					<option value="Tag3">Tag 3</option>
-					<option value="Tag4">Tag 4</option>
+                    {% for tag in tags %}
+                        <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+{#					<option value="Tag1">Tag 1</option>#}
+{#					<option value="Tag2">Tag 2</option>#}
+{#					<option value="Tag3">Tag 3</option>#}
+{#					<option value="Tag4">Tag 4</option>#}
 				</select>
 			</div>
 			<div class="main-part">
@@ -43,9 +47,9 @@
 					<label for="main-year-group">Основной поток</label>
 					</div>
 					<select class="year-choice" name="year-select" id="year-select" onchange="updateProjectList()">
-						<option value="2021/2022" checked="">2021/2022</option>
-						<option value="2020/2021">2020/2021</option>
-						<option value="2019/2020">2019/2020</option>
+						{% for group in year_groups %}
+                            <option value="{{ group.name }}" {% if group.is_main %} checked="" {% endif %}>{{ group.name }}</option>
+                        {% endfor %}
 					</select>
 				</div>
 			</div>
@@ -176,7 +180,10 @@
 				</div>
 			</div>
 		</form>
-		<script src="search.js"></script>
+        <script>
+            let allProjects = {{ projects|safe }}
+        </script>
+		<script src="{% static 'js/search.js' %}"></script>
 	</body>
 </html>
 	

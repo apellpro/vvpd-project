@@ -67,8 +67,16 @@ class Student(models.Model):
 
 
 class Tag(models.Model):
-    text = models.CharField('Текст тэга', max_length=32),
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+
+    text = models.CharField('Текст тега', max_length=32)
     background_color = models.CharField('Цвет фона', max_length=7)
     text_color = models.CharField('Цвет текста', max_length=7)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    projects = models.ManyToManyField(Project)
+
+    def __str__(self):
+        return self.text

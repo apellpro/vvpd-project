@@ -15,6 +15,10 @@ body {
     background: linear-gradient(135deg, #ffffff, #aaaaaa);
 }
 
+._HIDDEN {
+    display: none;
+}
+
 .header {
     flex: 0 0 72px;
     border-bottom: 1px solid black;

@@ -7,35 +7,32 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/tiles.css' %}">
+    <style>
+        body {
+        {% for index, color, student in students %}
+            --{{ student.github_username }}: {{ color }};
+        {% endfor %}
+        }
+    </style>
 </head>
 <body>
-    <div class="header"></div>
+    <div class="header">
+
+    </div>
     <div class="dashboard">
+        {% if not guest %}
         <div class="tile main-tile">
-            <p class="project-name">Мониторинг успешности проектов</p>
+            <p class="project-name">{{ main_tile.project_name }}</p>
+            {% for index, color, student in main_tile.students %}
             <div class="student">
-                <input type="radio" name="student" id="s1">
-                <div class="color-mark" style="background: red;"></div>
-                <label for="s1">Дмитрий Надобных</label>
+                <input type="radio" name="student" id="{{ student.github_username }}">
+                <div class="color-mark" style="background: {{ color }};"></div>
+                <label for="{{ student.github_username }}">{{ student.firstname }} {{ student.surname }}</label>
             </div>
-            <div class="student">
-                <input type="radio" name="student" id="s2">
-                <div class="color-mark" style="background: blue;"></div>
-                <label for="s2">Даниил Присяжнюк</label>
-            </div>
-            <div class="student">
-                <input type="radio" name="student" id="s3">
-                <div class="color-mark" style="background: green;"></div>
-                <label for="s3">Даниил Шинкаренко</label>
-            </div>
-            <div class="student">
-                <input type="radio" name="student" id="s4">
-                <div class="color-mark" style="background: orange;"></div>
-                <label for="s4">Валерия Хабибрахманова</label>
-            </div>
+            {% endfor %}
             <div class="cancel">
-                <input type="radio" name="student" id="s0" checked>
-                <label for="s0">
+                <input type="radio" name="student" id="cancel" checked>
+                <label for="cancel">
                     <i class='bx bx-x'></i><span>Отмена</span>
                 </label>
                 <p class="info">
@@ -43,72 +40,162 @@
                 </p>
             </div>
         </div>
-        <div class="tile impact-tile">
+        {% endif %}
+        {% if error %}
+        <div class="tile error-tile">
+            <p>
+                Не удалось загрузить данные c GitHub.
+                <br>Проверьте корректность введенного адреса, либо же повторите попытку позже.
+            </p>
+        </div>
+        {% else %}
+        {% if not guest %}
+        <div class="tile common-tile impact-tile">
             <p class="title">Статистика</p>
             <canvas id="impact-circle" width="200" height="200"></canvas>
         </div>
-        <div class="tile tasks-tile">
+        {% endif %}
+        <div class="tile common-tile tasks-tile">
             <p class="title">
                 Задачи
             </p>
             <p class="count open-count">
-                <span>Открытых задач: <span class="tasks-number">{{ issues.opened }}</span></span>
-                <span class="info">+4 за последние 2 недели</span>
+                <span>Открытых задач: <span class="tasks-number">
+                    {{ tasks_tile.opened }}
+                </span></span>
+                <span class="info">+{{ tasks_tile.opened_2w }} за последние 2 недели</span>
             </p>
             <p class="count close-count">
-                <span>Закрытых задач: <span class="tasks-number">{{ issues.closed }}</span></span>
-                <span class="info">+4 за последние 2 недели</span>
+                <span>Закрытых задач: <span class="tasks-number">
+                    {{ tasks_tile.closed }}
+                </span></span>
+                <span class="info">+{{ tasks_tile.closed_2w }} за последние 2 недели</span>
             </p>
             <p class="count alltime-count">
-                <span>Задач за всё время: <span class="tasks-number">{{ issues.total }}</span></span>
+                <span>Задач за всё время: <span class="tasks-number">
+                    {{ tasks_tile.total }}
+                </span></span>
             </p>
             <p class="count free-space"></p>
         </div>
-        <div class="tile wide-tile commits-tile">
+        <div class="tile common-tile wide-tile commits-tile">
             <div class="tile-header">
                 <p class="title">Коммиты</p>
             </div>
-            <div class="commit" style="--user-color: red;">
-                <span class="commit-description">Добавлены файлы (другие) </span>
-                <span class="commit-date">03.04.2022 17:45</span>
+            {% for commit in commits_tile.commits %}
+            <div class="commit" {% if not guest %} style="--user-color: var(--{{ commit.author.login }});" {% endif %}>
+                <span class="commit-description">{{ commit.commit.message }}</span>
+                <span class="commit-date">{{ commit.commit.committer.date }}</span>
             </div>
-            <div class="commit" style="--user-color: green;">
-                <span class="commit-description">Добавлены файлы</span>
-                <span class="commit-date">03.04.2022 17:40</span>
-            </div>
-            <div class="commit" style="--user-color: orange;">
-                <span class="commit-description">Хотфикс</span>
-                <span class="commit-date">03.04.2022 13:45</span>
-            </div>
-            <div class="commit" style="--user-color: blue;">
-                <span class="commit-description">Очень длинное описание коммита вот прям нужно чтобы тут было 79 символов жесть!</span>
-                <span class="commit-date">01.04.2022 22:22</span>
-            </div>
-            <div class="commit" style="--user-color: red;">
-                <span class="commit-description">Update README.md</span>
-                <span class="commit-date">28.03.2022 01:46</span>
-            </div>
+            {% endfor %}
             <div class="other-commits">
-                <p>и ещё 5 коммитов</p>
+                {% if commits_tile.show_info %}
+                <p>и ещё {{ commits_tile.count }} коммитов</p>
+                {% endif %}
             </div>
             <div class="commit-line"></div>
         </div>
-        <div class="tile wide-tile graphic-tile">
+        <div class="tile common-tile wide-tile graphic-tile">
             <div class="tile-header">
                 <p class="title">Графики</p>
             </div>
+            <canvas id="graphic" width="512" height="240"></canvas>
         </div>
-        <div class="tile release-tile">
+        <div class="tile common-tile release-tile">
             <p class="title">Релизы</p>
-            <div class="release-list hidden"></div>
+            {% if release_tile %}
+            <div class="release-list">
+                {% for key, value in release_tile %}
+                <div class="release">
+                    <span class="release-ver">{{ key }}</span>
+                    <span class="release-date">{{ value }}</span>
+                </div>
+                {% endfor %}
+                <div class="release empty"></div>
+            </div>
+            {% else %}
             <div class="no-releases">
                 <img src="{% static 'img/sadcat.png' %}" alt="There is very sad cat">
                 <p>Команда ещё не сделала ни одного релиза</p>
             </div>
+            {% endif %}
         </div>
-        <div class="tile delta-tile"></div>
-        <div class="tile rating-tile"></div>
+        <div class="tile common-tile delta-tile">
+            <p class="title">Строки</p>
+            <p class="info">за последние 2 недели</p>
+            <div class="delta-holder">
+                <span class="delta-plus">+{{ delta_tile.delta_plus }}</span>
+                <span class="delta-separator">/</span>
+                <span class="delta-minus">{{ delta_tile.delta_minus }}</span>
+            </div>
+        </div>
+        <div class="tile common-tile rating-tile">
+            <p class="title">Рейтинг</p>
+            <div class="rating-holder">
+                <div class="pie-view" style="--percentage: {{ rating_tile.percentage }}; --color: red;">
+                    <div class="pie"></div>
+                    <span class="score">{{ rating_tile.percentage }}</span>
+                </div>
+                <div class="advanced-view">
+                    {% for metric in rating_tile.advanced %}
+                        {% if metric.1 %}
+                        <p class="complete"><i class='bx bx-check'></i>{{ metric.0 }}</p>
+                        {% else %}
+                        <p class="unready"><i class='bx bx-x'></i>{{ metric.0 }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if not guest %}
+        <div class="tile user-tile wide-tile commits-tile" id="user-commits">
+            <div class="tile-header">
+                <p class="title">Коммиты</p>
+            </div>
+            <div class="commit" style="--user-color: red;">
+                <span class="commit-description">1</span>
+                <span class="commit-date">2</span>
+            </div>
+            <div class="commit" style="--user-color: red;">
+                <span class="commit-description">1</span>
+                <span class="commit-date">2</span>
+            </div>
+            <div class="other-commits">
+                <p>и ещё 0 коммитов</p>
+            </div>
+            <div class="commit-line"></div>
+        </div>
+        <div class="tile user-tile delta-tile">
+            <p class="title">Строки</p>
+            <p class="info">за последние 2 недели</p>
+            <div class="delta-holder">
+                <span class="delta-plus" id="user-delta-plus"></span>
+                <span class="delta-separator">/</span>
+                <span class="delta-minus" id="user-delta-minus"></span>
+            </div>
+        </div>
+        <div class="tile user-tile"></div>
+        {% endif %}
+        {% endif %}
     </div>
+    {% csrf_token %}
+    <input type="text" class="_HIDDEN" name="git_owner" value="{{ ajax.owner }}">
+    <input type="text" class="_HIDDEN" name="git_repo" value="{{ ajax.repo }}">
 </body>
+<script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous">
+</script>
+<script src="{% static 'js/user-tiles.js' %}"></script>
+{% if not guest %}
+<script>
+    let counts = {{ impact_tile|safe }};
+</script>
+{% endif %}
 <script src="{% static 'js/impact-tile.js' %}"></script>
+<script>
+    let weekCounts = {{ graphic_tile|safe }};
+</script>
+<script src="{% static 'js/graphic-tile.js' %}"></script>
 </html>

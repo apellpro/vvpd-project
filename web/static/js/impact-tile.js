@@ -2,15 +2,13 @@ let canvas = document.getElementById('impact-circle');
 let ctx = canvas.getContext('2d');
 
 const pi = Math.PI;
-const colors = ['red', 'blue', 'green', 'orange'];
 
-let counts = [19, 11, 4, 8];
 let countSum = 0;
 for (let i = 0; i < counts.length; i++)
     countSum += counts[i];
 
 
-function a (f) {
+function drawPie (f) {
     ctx.beginPath();
     ctx.moveTo(100, 100);
     ctx.arc(100,100,101, 0, 2 * pi);
@@ -22,7 +20,7 @@ function a (f) {
         ctx.beginPath();
         ctx.moveTo(100, 100);
         ctx.arc(100, 100, 100, lastAngle, newAngle, false);
-        ctx.fillStyle = colors[i];
+        ctx.fillStyle = userColors[i];
         ctx.fill();
         lastAngle = newAngle;
         ctx.closePath();
@@ -33,9 +31,9 @@ function a (f) {
     ctx.fillStyle = 'white';
     ctx.fill();
     if (f < 1) {
-        setTimeout(() => {a(f+0.02)}, 3);
+        setTimeout(() => {drawPie(f+0.02)}, 3);
     }
 }
 
-a(0.02)
+drawPie(0.02)
 

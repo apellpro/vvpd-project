@@ -7,5 +7,11 @@
 <body>
     <p>Успешная авторизация под пользователем {{ request.user }}</p>
     <a href="{% url 'logout' %}">Выйти</a>
+    {{ tags }}
+    {{ year_groups }}
+    <script>
+        let projects = {{ projects|safe }}
+        console.log(projects)
+    </script>
 </body>
 </html>
