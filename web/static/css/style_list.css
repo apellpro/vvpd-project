@@ -211,7 +211,6 @@ body #win-project .project-items .name {
 	align-items: center;
 	font-size: 20px;
 	padding: 10px 0;
-	border-bottom: #ff4500 2px solid;
 }
 
 body #win-project .project-items .project, .students, .students-up-part {
@@ -329,17 +328,17 @@ body #win-project .project-items .students .input-box input {
 	margin: 10px;
 }
 
-#student-1 .study {
+body #win-project .project-items .students .study {
 	display: flex;
 	justify-content: space-between;
 }
 
-#student-1 .FIO {
+body #win-project .project-items .students .FIO {
 	display: flex;
 	flex-direction: column;
 }
 
-#student-1 .social {
+body #win-project .project-items .students .social {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 10px;
