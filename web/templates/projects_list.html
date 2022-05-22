@@ -87,88 +87,46 @@
 				<div class="students-up-part">
 					<p class="list-name">Список студентов</p>
 					<div class="menu">
-						<a href="#win-project" class="student-num">1<i class="fas fa-crown"></i></a>
-						<a href="#win-project" class="student-num">2</a>
-						<a href="#win-project" id="new-student">+</a>
-					</div>
+                        <a href="#win-project" class="student-num" onclick="setActive(this)">1<i class="fas fa-crown"></i></a>
+                        <a href="#win-project" id="new-student" onclick="addStudentForm()">+</a>
+                    </div>
 				</div>
 				<div class="students">
 					<div id="student-1" class="active">
 						<div class="up">
 							<p class="num">Студент <span>1</span></p>
-							<button class="delete"><i class="fas fa-trash-alt"></i></button>
 						</div>
 						<div class="FIO">
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-surname">
+								<input type="text" placeholder=" " autocomplete="off" name="stud-surname-1">
 								<label>Фамилия</label>
 							</div>
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-name">
+								<input type="text" placeholder=" " autocomplete="off" name="stud-name-1">
 								<label>Имя</label>
 							</div>
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-patronymic">
+								<input type="text" placeholder=" " autocomplete="off" name="stud-patronymic-1">
 								<label>Отчество</label>
 							</div>
 						</div>
 						<div class="study">
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-group">
+								<input type="text" placeholder=" " autocomplete="off" name="stud-group-1">
 								<label>Группа</label>
 							</div>
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-edu">
+								<input type="text" placeholder=" " autocomplete="off" name="stud-edu-1">
 								<label>Форма обучения</label>
 							</div>
 						</div>
 						<div class="social">
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-vk">
+								<input type="text" placeholder=" " name="stud-vk-1">
 								<label>VK</label>
 							</div>
 							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-git">
-								<label>GitHub</label>
-							</div>
-						</div>
-					</div>
-					<div id="student-2">
-						<div class="up">
-							<p class="num">Студент <span>2</span></p>
-							<button class="delete"><i class="fas fa-trash-alt"></i></button>
-						</div>
-						<div class="FIO">
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-surname">
-								<label>Фамилия</label>
-							</div>
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-name">
-								<label>Имя</label>
-							</div>
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-patronymic">
-								<label>Отчество</label>
-							</div>
-						</div>
-						<div class="study">
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-group">
-								<label>Группа</label>
-							</div>
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-edu">
-								<label>Форма обучения</label>
-							</div>
-						</div>
-						<div class="social">
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-vk">
-								<label>VK</label>
-							</div>
-							<div class="input-box">
-								<input type="text" placeholder=" " name="stud-git">
+								<input type="text" placeholder=" " name="stud-git-1">
 								<label>GitHub</label>
 							</div>
 						</div>
@@ -184,6 +142,7 @@
             let allProjects = {{ projects|safe }}
         </script>
 		<script src="{% static 'js/search.js' %}"></script>
+		<script src="{% static 'js/student_form.js' %}"></script>
 	</body>
 </html>
 	
