@@ -55,7 +55,8 @@
 			</div>
 		</div>
 		<div class="space"></div>
-		<form id="win-year" action="#" method="post">
+		<form id="win-year" action="{% url 'add_year_group' %}" method="post">
+            {% csrf_token %}
 			<a href="#" class="win-overlay"></a>
 			<div class="year-items">
 				<p class="name">Название потока</p>
@@ -70,7 +71,8 @@
 				</div>
 		    </div>
 		</form>
-		<form id="win-project" action="#" method="post">
+		<form id="win-project" action="{% url 'add_project' %}" method="post">
+            {% csrf_token %}
 			<a href="#" class="win-overlay"></a>
 			<div class="project-items">
 				<p class="name">Новый проект</p>
