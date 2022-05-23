@@ -165,50 +165,57 @@ def year_group(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         studying_year = request.POST.get('enter-year')
-        is_main = request.POST.get('do-main-year-group')
-
-        if name and name.isalpha() and studying_year and is_main:
+        if request.POST.get('do-main-year-group') == 'on':
+            is_main = True
+        else:
+            is_main = False
+        if studying_year:
             new_group = YearGroup.objects.create(
-                name=name,
+                name=f'{studying_year}/{int(studying_year)+1}',
                 studying_year=studying_year,
                 is_main=is_main)
-        new_group.save()
-
+            new_group.save()
         return redirect('projects')
-
     else:
         return redirect('projects')
 
 
 def project(request):
+    print(request.POST, 1)
     if request.method == 'POST':
-        if 'name' in request.POST and 'github_slug' in request.POST:
+        if 'project-name' in request.POST and 'git-link' in request.POST:
             name = request.POST.get('project-name')
             github_slug = request.POST.get('git-link')
+            stud_name = request.POST.get('stud-name')
 
             new_project = Project.objects.create(
                 name=name,
-                github_slug='github_slug',
+                github_slug=github_slug,
+                year_group=YearGroup.objects.filter(is_main=True).first()
             )
             new_project.save()
-
             for i in range(1, 5):
                 if f'stud-name-{i}' not in request.POST:
                     continue
+                if i == 1:
+                    is_leader = True
+                else:
+                    is_leader = False
+
                 new_student = Student.objects.create(
-                    firstname=request.POST.get('stud-name'),
-                    surname=request.get('stud-surname'),
-                    patronymic=request.get('stud-patronymic'),
-                    education_group=request.get('stud-group'),
-                    education_type=request.get('stud-edu'),
-                    github_username=request.get('stud-git'),
-                    vk_uid=request.get('stud-vk'),
-                    is_leader=request.get('is_leader'),
+                    firstname=request.POST.get(f'stud-name-{i}'),
+                    surname=request.POST.get(f'stud-surname-{i}'),
+                    patronymic=request.POST.get(f'stud-patronymic-{i}'),
+                    education_group=request.POST.get(f'stud-group-{i}'),
+                    education_type=request.POST.get(f'stud-edu-{i}'),
+                    github_username=request.POST.get(f'stud-git-{i}'),
+                    vk_uid=request.POST.get(f'stud-vk-{i}'),
+                    is_leader=is_leader,
+                    project=new_project
                 )
+                print(new_student.__dir__())
                 new_student.save()
-            return redirect(request, 'projects')
-        else:
-            return redirect(request, 'project')
+    return redirect('projects')
 
 
 def tag(request):
