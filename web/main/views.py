@@ -52,25 +52,6 @@ def auth_logout(request):
 
 @login_required(login_url='home')
 def projects_list(request):
-    ex = {
-        "projectName": "ПО для мониторинга проектов",
-        "students": [
-            "Присяжнюк Даниил",
-            "Надобных Дмитрий"
-        ],
-        "repo": "apellnoob/vvpd-project",
-        "tags": {
-            "Tag2": {
-                "bgColor": "#FCA3A3",
-                "txtColor": "#000000"
-            },
-            "Tag5": {
-                "bgColor": "#FCA303",
-                "txtColor": "#000000"
-            }
-        },
-        "year": "2020/2021"
-    }
     projects_json = [
         {
             "projectName": project.name,
@@ -95,6 +76,11 @@ def projects_list(request):
         'tags': Tag.objects.all(),
         'year_groups': YearGroup.objects.all(),
     })
+
+
+@login_required(login_url='home')
+def personal(request):
+    return render(request, 'personal_area.html')
 
 
 def project_review(request, git_user, git_repo):

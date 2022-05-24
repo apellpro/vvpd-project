@@ -13,9 +13,11 @@
 		<div class="side-btns">
 			<a href="#win-project"><i class="fas fa-plus"></i></a>
 			<a href="#win-year"><i class="far fa-calendar-plus"></i></a>
-			<a href="#"><i class="fas fa-user-cog"></i></a>
-			<a href="personal_area.html"><i class="fas fa-user"></i></a>
-			<a href="main_page.html"><i class="fas fa-door-closed"></i></a>
+            {% if request.user.is_staff %}
+			<a href="/admin"><i class="fas fa-user-cog"></i></a>
+            {% endif %}
+			<a href="{% url 'personal' %}"><i class="fas fa-user"></i></a>
+			<a href="{% url 'logout' %}"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
 			<div class=" up-part">
@@ -147,4 +149,4 @@
 		<script src="{% static 'js/student_form.js' %}"></script>
 	</body>
 </html>
-	
+
