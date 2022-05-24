@@ -1,6 +1,5 @@
 function updateProjectList() {
     
-
     function countMatches(project, name) {
         let counter = 0
         splitedRequest.forEach(requestPart => {
@@ -20,7 +19,7 @@ function updateProjectList() {
         countMatches(project, project["projectName"])
         project["students"].forEach(studentName => {
             countMatches(project, studentName)
-        }) 
+        })
     })
 
     let projectList = document.createElement("div")
@@ -47,9 +46,9 @@ function updateProjectList() {
         let repo = document.createElement("p")
         repo.className = "git"
         repo.appendChild(document.createTextNode(curProject["repo"]))
-        
+
         project.appendChild(repo)
-        
+
         let tags = document.createElement("div")
         tags.className = "tags"
         for (let curTag in curProject["tags"]) {
@@ -62,11 +61,38 @@ function updateProjectList() {
         project.appendChild(tags)
         projectList.appendChild(project)
     }
+    let oldNumSpan = document.getElementById("found-amount")
+    let newNumSpan = document.createElement("span")
+    newNumSpan.appendChild(document.createTextNode(`${showingProjects.length}`))
+    newNumSpan.id = "found-amount"
+    spanParent = document.getElementsByClassName("text-found")[0]
+    spanParent.replaceChild(newNumSpan, oldNumSpan)
     let oldProjectList = document.getElementsByClassName("main-part")[0]
-    let parent = document.getElementsByClassName("workspace")[0]
-    parent.replaceChild(projectList, oldProjectList)
+    let studentsParent = document.getElementsByClassName("workspace")[0]
+    studentsParent.replaceChild(projectList, oldProjectList)
+
+    let checkbox = document.getElementById("main-year-group")
+    if (mainYear != curYear) {
+        if (checkbox.hasAttribute("disabled"))
+            checkbox.removeAttribute("disabled")
+        checkbox.checked = false
+        checkbox.onclick = function () {
+            checkbox.setAttribute("disabled", "disabled")
+            checkbox.setAttribute("checked", "checked")
+            mainYear = curYear
+            // ПИСАТЬ РЕКВЕСТ ТУТ, НАВЕРНОЕ
+        }
+    }
+    else {
+        checkbox.setAttribute("disabled", "disabled")
+        checkbox.checked = true
+    }
+
+
 }
 
 document.getElementsByTagName("input")[0].addEventListener('keyup', event => {
     updateProjectList()
 })
+
+let mainYear = document.getElementsByName('year-select')[0].value
