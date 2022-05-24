@@ -27,6 +27,10 @@ body .workspace .tags .tag .delete {
 	position: absolute;
 	top: -5px;
 	right: 5px;
+	text-shadow: 1px 0 1px #000, 
+			0 1px 1px #000, 
+			-1px 0 1px #000, 
+			0 -1px 1px #000;
 }
 
 body .workspace .tags .new-tag {
@@ -74,7 +78,7 @@ body .workspace .input-box label {
 }
 
 body .workspace .input-box input:focus + label,
-body .workspace .input-box .input-box input:not(:placeholder-shown) + label{
+body .workspace .input-box input:not(:placeholder-shown) + label{
     margin: 0 0 0 30px;
     font-size: 12px; 
     background-color: #ff6127;

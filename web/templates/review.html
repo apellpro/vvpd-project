@@ -5,6 +5,7 @@
     <title>Dashboard</title>
     {% load static %}
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/tiles.css' %}">
     <style>
@@ -17,8 +18,72 @@
 </head>
 <body>
     <div class="header">
-
-    </div>
+		<div class="left-part">
+			<a href="projects_list.html" class="back-btn"><i class="fa fa-arrow-left"></i></a>
+			<a href="https://github.com/0" class="git-btn" target="_blank"><i class="fa fa-github"></i>&#160;GitHub</a>
+			<ul class="vk-menu">
+				<li><a class="vk-btn" href="#"><i class="fa fa-vk"></i>&#160;ВКонтакте</a> 
+					<ul class="vk-list">
+						<li><a href="https://vk.com/0" target="_blank">Дмитрий Надобных</a></li>
+						<li><a href="https://vk.com/0" target="_blank">Даниил Присяжнюк</a></li>
+						<li><a href="https://vk.com/0" target="_blank">Даниил Шинкаренко</a></li>
+						<li><a href="https://vk.com/0" target="_blank">Валерия Хабибрахманова</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="right-part">
+			<a href="#win-tag-setup" class="tag-setup-btn">Настройка тэгов</a>
+		</div>
+	</div>
+	<form id="win-tag-setup" action="#" method="post">
+		<a href="#" class="win-overlay"></a>
+		<div class="tag-setup-items">
+			<p>Настройка тэгов проекта: </p>
+			<div class="tags">
+				<div class="project-tags">
+					<div class="tag" style="background: red">
+						<span>Tag 1</span>
+						<button class="delete"><i class="fa fa-times"></i></button>
+					</div>
+					<div class="tag" style="background: #2BBD77">
+						<span>Tag 2</span>
+						<button class="delete"><i class="fa fa-times"></i></button>
+					</div>				
+					<div class="tag" style="background: #FCA303">
+						<span>Tag 3</span>
+						<button class="delete"><i class="fa fa-times"></i></button>
+					</div>
+					<div class="tag" style="background: #2BBD57">
+						<span>Tag 4</span>
+						<button class="delete"><i class="fa fa-times"></i></button>
+					</div>				
+					<div class="tag" style="background: #FCB303">
+						<span>Tag 5</span>
+						<button class="delete"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+				<div class="lk-tags">
+					<div class="tag" style="background: #FCB5A3">
+						<span>Tag 6</span>
+						<button class="enter"><i class="fa fa-plus"></i></button>
+					</div>
+					<div class="tag" style="background: #2AAD77">
+						<span>Tag 7</span>
+						<button class="enter"><i class="fa fa-plus"></i></button>
+					</div>
+					<div class="tag" style="background: #FAD303">
+						<span>Tag 8</span>
+						<button class="enter"><i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="btns">
+				<input type="submit" value="Сохранить">
+				<a href="#">Отмена</a>
+			</div>
+		</div>
+	</form>
     <div class="dashboard">
         {% if not guest %}
         <div class="tile main-tile">

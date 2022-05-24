@@ -291,7 +291,7 @@ body #win-project .project-items .students-up-part .menu a:hover, button:hover {
 	box-shadow: 0 0 4px 0 #ff6127;
 }
 
-body #win-project .project-items .students-up-part .menu a:active, button:active {
+body #win-project .project-items .students-up-part .menu a:active, button:active, .active-num {
 	box-shadow: 0 0 4px 0 #ff4500;
 }
 
