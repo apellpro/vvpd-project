@@ -118,6 +118,8 @@ function setActive(el) {
     let curActiveNum = el.textContent
     if (curActiveNum == prevActive.id.slice(-1))
         return
+    document.getElementsByClassName("active-num")[0].classList.remove("active-num")
+    document.getElementsByClassName("student-num")[curActiveNum - 1].classList.add("active-num")
     prevActive.className = "non-active"
     let curActive = document.getElementById("student-" + curActiveNum)
     curActive.className = "active"
