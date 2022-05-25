@@ -80,7 +80,9 @@ def projects_list(request):
 
 @login_required(login_url='home')
 def personal(request):
-    return render(request, 'personal_area.html')
+    return render(request, 'personal_area.html', context={
+        'tags': Tag.objects.all()
+    })
 
 
 def project_review(request, git_user, git_repo):
@@ -223,7 +225,7 @@ def tag(request):
 
 def ajax_commits(request):
     if request.method != 'POST':
-        return redirect(request, 'projects')
+        return redirect('projects')
     if all(i in request.POST for i in ['git_owner', 'git_repo', 'git_user']):
         answer = get_commits(
             request.POST['git_owner'], request.POST['git_repo'], request.POST['git_user']
@@ -236,10 +238,33 @@ def ajax_commits(request):
 
 def ajax_delta(request):
     if request.method != 'POST':
-        return redirect(request, 'projects')
+        return redirect('projects')
     if all(i in request.POST for i in ['git_owner', 'git_repo', 'git_user']):
         answer = get_contributor_delta(
             request.POST['git_owner'], request.POST['git_repo'], request.POST['git_user']
         )
         return JsonResponse(answer, safe=False)
     return JsonResponse({'error': 0})
+
+
+def ajax_main_year(request):
+    if request.method != 'POST':
+        return redirect('projects')
+    if 'group_id' in request.POST:
+        print(int(request.POST['group_id']))
+        group = YearGroup.objects.filter(id=int(request.POST['group_id']))[0]
+        group.is_main = True
+        group.save()
+    return JsonResponse({'error': 0})
+
+
+def ajax_delete_tag(request):
+    pass
+
+
+def ajax_bound_tag(request):
+    pass
+
+
+def ajax_unbound_tag(request):
+    pass

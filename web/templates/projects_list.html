@@ -30,10 +30,6 @@
                     {% for tag in tags %}
                         <option value="{{ tag }}">{{ tag }}</option>
                     {% endfor %}
-{#					<option value="Tag1">Tag 1</option>#}
-{#					<option value="Tag2">Tag 2</option>#}
-{#					<option value="Tag3">Tag 3</option>#}
-{#					<option value="Tag4">Tag 4</option>#}
 				</select>
 			</div>
 			<div class="main-part">
@@ -41,7 +37,7 @@
 			</div>
 			<div class="down-part">
 				<p class="text-found">
-					Найдено <span id="found-amount">N</span> проектов 
+					Количество: <span id="found-amount">N</span>
 				</p>
 				<div class="year-part">
 					<div class="checkbox">
@@ -50,7 +46,7 @@
 					</div>
 					<select class="year-choice" name="year-select" id="year-select" onchange="updateProjectList()">
 						{% for group in year_groups %}
-                            <option value="{{ group.name }}" {% if group.is_main %} checked="" {% endif %}>{{ group.name }}</option>
+                            <option value="{{ group.name }}" {% if group.is_main %} selected {% endif %} id="yeargroup-{{ group.id }}">{{ group.name }}</option>
                         {% endfor %}
 					</select>
 				</div>
@@ -144,6 +140,11 @@
 		</form>
         <script>
             let allProjects = {{ projects|safe }}
+        </script>
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+          crossorigin="anonymous">
         </script>
 		<script src="{% static 'js/search.js' %}"></script>
 		<script src="{% static 'js/student_form.js' %}"></script>

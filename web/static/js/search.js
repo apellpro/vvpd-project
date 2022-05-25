@@ -75,12 +75,23 @@ function updateProjectList() {
     if (mainYear != curYear) {
         if (checkbox.hasAttribute("disabled"))
             checkbox.removeAttribute("disabled")
-        checkbox.checked = false
-        checkbox.onclick = function () {
-            checkbox.setAttribute("disabled", "disabled")
-            checkbox.setAttribute("checked", "checked")
-            mainYear = curYear
-            // ПИСАТЬ РЕКВЕСТ ТУТ, НАВЕРНОЕ
+            checkbox.checked = false
+            checkbox.onclick = function () {
+                checkbox.setAttribute("disabled", "disabled")
+                checkbox.setAttribute("checked", "checked")
+                mainYear = curYear
+                $.ajax({
+                    url: '/api/mainyeargroup',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    data: {
+                        'group_id': $("#year-select")[0].selectedOptions[0].id.slice(10)
+                    },
+                    success: null,
+                    error: () => {location.reload()}
+                })
         }
     }
     else {
