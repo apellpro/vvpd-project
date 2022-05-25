@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-cb=^pby=f_^%x*!horno-%z*20=gyoi(ax*&&d%8q62mm@-42#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dopaminq.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
