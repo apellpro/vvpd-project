@@ -1,0 +1,476 @@
+.tile
+{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border: 1px dotted black;
+    margin: 10px;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+.wide-tile
+{
+    width: 550px;
+}
+body .dashboard div.user-tile {display: none}
+body.user-mode .dashboard div.common-tile {display: none}
+body.user-mode .dashboard div.user-tile {display: flex}
+
+/* ERROR TILE ------------------ */
+
+.error-tile
+{
+    justify-content: center;
+}
+.error-tile p {
+    text-align: center;
+    font-size: 20px;
+}
+
+/* MAIN TILE ------------------- */
+
+.main-tile
+{}
+.main-tile p.project-name
+{
+    flex: 0 0 4em;
+    padding: 10px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4em;
+}
+.main-tile div.student
+{
+    position: relative;
+    flex: 1 0 2.3em;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    font-weight: 400;
+}
+.main-tile div.student div.color-mark
+{
+    height: 80%;
+    width: 8px;
+    margin-right: 15px;
+    transition: .3s;
+}
+.main-tile div label:hover
+{
+    cursor: pointer;
+    font-weight: 600;
+}
+.main-tile div.student input[type=radio],
+.main-tile div.cancel input[type=radio]
+{
+    display: none;
+}
+.main-tile div.student input[type=radio]:checked ~ div.color-mark
+{
+    width: 20px;
+}
+.main-tile div.student input[type=radio]:checked ~ label
+{
+    font-weight: 600;
+}
+.main-tile div.cancel
+{
+    flex: 0 0 2.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+.main-tile div.cancel label
+{
+    display: flex;
+    align-items: center;
+    color: red;
+}
+.main-tile div.cancel p.info
+{
+    color: dimgrey;
+    display: none;
+    font-size: 10px;
+    text-align: center;
+}
+.main-tile div.cancel input:checked ~ p
+{
+    display: block;
+}
+.main-tile div.cancel input:checked ~ label
+{
+    display: none;
+}
+.main-tile div.cancel i.bx {font-size: 24px;}
+
+/* TASKS TILE ------------------- */
+
+.tasks-tile
+{}
+.tasks-tile p.title
+{
+    font-size: 32px;
+    line-height: 60px;
+    font-weight: 600;
+    flex: 0 0 60px;
+    text-align: center;
+}
+.tasks-tile p.count
+{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tasks-tile p.count span.tasks-number
+{
+    font-size: 1.5em;
+    margin-left: .25em;
+    font-weight: 600;
+}
+.tasks-tile p.count span.info
+{
+    font-weight: 400;
+    font-size: 12px;
+}
+.tasks-tile p.open-count {color: green;}
+.tasks-tile p.close-count {color: blue;}
+.tasks-tile p.open-count {color: green;}
+
+/* COMMITS TILE ------------------- */
+
+.commits-tile
+{
+    align-content: flex-start;
+    --user-color: grey;
+}
+.commits-tile div.tile-header
+{
+    flex: 0 0 48px;
+}
+.commits-tile div.tile-header p.title
+{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 48px;
+    margin-left: 1em;
+}
+.commits-tile div.commit
+{
+    position: relative;
+    flex: 0 0 45px;
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+}
+.commits-tile div.commit span.commit-description
+{
+    flex: 1 0 360px;
+}
+.commits-tile div.commit span.commit-date
+{
+    flex: 0 0 110px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.commits-tile div.commit:before
+{
+    z-index: 2;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 5px solid var(--user-color);
+}
+.commits-tile div.other-commits
+{
+    flex: 0 0 25px;
+}
+.commits-tile div.other-commits p
+{
+    margin-left: 45px;
+    font-size: 12px;
+    color: dimgrey;
+}
+.commits-tile div.commit-line
+{
+    position: absolute;
+    left: 28px;
+    top: 78px;
+    height: 220px;
+    width: 3px;
+    background: black;
+}
+
+/* IMPACT TILE -------------------------- */
+.impact-tile
+{}
+.impact-tile p.title
+{
+    height: 2em;
+    line-height: 2em;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+.impact-tile canvas
+{
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    animation: rotate 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotate
+{
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+/* RELEASE TILE ---------------------- */
+
+.release-tile
+{}
+.release-tile p.title
+{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    flex: 0 0 60px;
+    line-height: 60px;
+}
+.release-tile div.no-releases
+{
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.release-tile div.no-releases img
+{
+    width: 85%;
+}
+.release-tile div.no-releases p
+{
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+.release-tile div.release-list {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.release-tile div.release-list .release {
+    flex: 1 0 40px;
+    display: flex;
+    position: relative;
+}
+
+.release-tile div.release-list .release:after{
+    content: '';
+    position: absolute;
+    left: 20%;
+    bottom: 0;
+    width: 60%;
+    border-bottom: 1px solid silver;
+}
+.release-tile div.release-list .release:last-child:after{
+    display: none;
+}
+
+.release-tile div.release-list .release span {
+    display: flex;
+    flex: 0 0 50%;
+    font-size: 18px;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* GRAPHIC TILE ------------------------------- */
+
+.graphic-tile .tile-header
+{
+    flex: 0 0 48px;
+}
+.graphic-tile .tile-header p.title
+{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 48px;
+    margin-left: 1em;
+}
+.graphic-tile canvas
+{
+    margin: auto;
+}
+
+/* DELTA TILE ------------------------------- */
+
+.delta-tile p.title
+{
+    flex: 0 0 48px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 48px;
+    text-align: center;
+    position: relative;
+    bottom: -2%;
+}
+.delta-tile p.info
+{
+    flex: 0 0 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+.delta-tile div.delta-holder
+{
+    margin: auto;
+    transform: translateY(-15%);
+    height: 100px;
+    font-size: 40px;
+    display: flex;
+}
+.delta-tile div.delta-holder span.delta-plus
+{
+    color: green;
+}
+.delta-tile div.delta-holder span.delta-separator
+{
+    color: silver;
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+}
+.delta-tile div.delta-holder span.delta-minus
+{
+    color: red;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* RATING TILE ---------------------------------------- */
+
+.rating-tile p.title
+{
+    flex: 0 0 60px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 60px;
+    text-align: center;
+}
+.rating-tile div.rating-holder
+{
+    flex: 1 0 auto;
+    position: relative;
+}
+.rating-tile div.rating-holder div.pie-view
+{
+    position: absolute;
+    width: 100%;
+    height: 240px;
+    transition: opacity .3s;
+    display: flex;
+    justify-content: center;
+}
+.rating-tile div.rating-holder div.pie-view div.pie
+{
+    position: relative;
+    bottom: 10px;
+    --width: 200px;
+    width: var(--width);
+    height: var(--width);
+    aspect-ratio: 1;
+    display: inline-grid;
+    place-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: auto;
+    border-radius: 50%;
+    background: radial-gradient(white 0, white 84px, silver 85px);
+}
+.rating-tile div.rating-holder div.pie-view div.pie:before
+{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(var(--color) calc(var(--percentage)*1%),#0000 0);
+    -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - 15px),#000 calc(100% - 15px));
+          mask:radial-gradient(farthest-side,#0000 calc(99% - 15px),#000 calc(100% - 15px));
+}
+.rating-tile div.rating-holder div.pie-view div.pie:before
+{
+    background:
+    radial-gradient(farthest-side,var(--color) 98%,#0000) top/15px 15px no-repeat,
+    conic-gradient(var(--color) calc(var(--percentage)*1%),#0000 0);
+}
+.rating-tile div.rating-holder div.pie-view div.pie:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: calc(50% - 15px/2);
+    background: var(--color);
+    transform: rotate(calc(90deg + var(--percentage)*3.6deg)) translate(calc(50% - var(--width)/2));
+}
+.rating-tile div.rating-holder div.pie-view span.score
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% - 10px));
+    font-size: 72px;
+    font-weight: 600;
+    color: var(--color);
+}
+.rating-tile div.rating-holder div.advanced-view
+{
+    opacity: 0;
+}
+.rating-tile:hover div.rating-holder div.pie-view
+{
+    opacity: 0;
+}
+.rating-tile:hover div.rating-holder div.advanced-view
+{
+    opacity: 1;
+}
+.rating-tile div.advanced-view
+{
+    display: flex;
+    flex-direction: column;
+    height: 240px;
+}
+.rating-tile div.advanced-view p
+{
+    position: relative;
+    flex: 1 0 auto;
+    text-align: center;
+    font-size: 18px;
+}
+.rating-tile div.advanced-view p i.bx
+{
+    font-size: 24px;
+}
+.rating-tile div.advanced-view p.complete
+{
+    color: green;
+}
+.rating-tile div.advanced-view p.unready
+{
+    color: red;
+}

@@ -1,0 +1,116 @@
+* {
+	font-family: Bahnschrift;
+	font-style: normal;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #D7CBCB;
+	height: 100vh;
+}
+
+body .side-btns {
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 60px;
+}
+
+body .side-btns a {
+	display: flex;
+	flex: 0 0 50px;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	background: #fff;
+	color: #ff4500;
+	font-size: 20px;
+	border-radius: 15px;
+	margin: 10px 5px 0;
+}
+
+body .side-btns a:hover {
+	box-shadow: 0 0 10px 0 #ff6127;
+}
+
+body .side-btns a:active {
+	box-shadow: 0 0 10px 0 #ff4500;
+}
+
+body .workspace {
+	display: flex;
+	flex: 0 1 700px;
+	flex-direction: column;
+	margin: 0 10px;
+	background: #fff;
+	border-radius: 15px;
+	height: 95%;
+}
+
+body .space {
+	flex: 0 100 60px;
+}
+
+.win-overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+body .workspace .tags {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+body .workspace .tags .tag {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	border-radius: 15px;
+}
+
+body .btns *:hover {
+	box-shadow: 0 0 5px 0 #ff6127;
+}
+
+body .btns *:active {
+	box-shadow: 0 0 5px 0 #ff4500;
+}
+
+body .btns {
+	display: flex;
+	justify-content: flex-end;
+}
+
+body .btns * {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 18px;
+	background: #ff4500;
+	padding: 5px 0;	
+	width: 100px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+body .input-box {
+	display: flex;
+	position: relative;
+	width: 100%;
+}
+
+body .input-box label {
+    pointer-events: none;
+    position: absolute;
+    transition: all 250ms;
+	color: #9f9f9f;
+}
