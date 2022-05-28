@@ -309,6 +309,10 @@ body #win-project .project-items .students .active .up {
 	margin: 10px 0 0 10px;
 } 
 
+body #win-project .project-items .students #student-1 .up .num {
+	padding-bottom: 9px;
+}
+
 body #win-project .project-items .students .active .up button {
 	display: flex;
 	align-items: center;

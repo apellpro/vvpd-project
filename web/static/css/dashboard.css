@@ -37,7 +37,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
-	border: #000 1px dotted;
+	border: #000 1px solid;
 	border-radius: 15px;
 	background: #fff;
 	padding: 10px;
