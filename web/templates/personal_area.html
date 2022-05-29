@@ -43,15 +43,15 @@
 				{% csrf_token %}
 			<p class="change-pas-text">Смена пароля:</p>
 			<div class="input-box">
-				<input type="text" placeholder=" ">
+				<input type="text" placeholder=" " name="old-password">
 				<label>Введите старый пароль</label>
 			</div>
 			<div class="input-box">
-				<input type="text" placeholder=" ">
+				<input type="text" placeholder=" " name="new-password">
 				<label>Введите новый пароль</label>
 			</div>
 			<div class="input-box">
-				<input type="text" placeholder=" ">
+				<input type="text" placeholder=" " name="repeat-new-password">
 				<label>Повторите новый пароль</label>
 			</div>
 			<input class="change-pas" type="submit" value="Сменить пароль">

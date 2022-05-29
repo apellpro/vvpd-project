@@ -39,7 +39,7 @@ def home(request):
             login(request, user)
             return redirect('projects')
         else:
-            return render(request, 'main_page', context={
+            return render(request, 'main_page.html', context={
                 'error': 'Неверный логин и/или пароль'
             })
     return render(request, 'main_page.html')
@@ -230,6 +230,7 @@ def tag(request):
         return redirect('projects')
     else:
         return redirect('home')
+
 
 def change_password(request):
     if request.method == 'POST':
