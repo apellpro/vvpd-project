@@ -76,7 +76,7 @@ class Tag(models.Model):
     text_color = models.CharField('Цвет текста', max_length=7)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    projects = models.ManyToManyField(Project)
+    projects = models.ManyToManyField(Project, blank=True)
 
     def __str__(self):
         return self.text

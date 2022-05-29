@@ -16,13 +16,13 @@
 			<a href="{% url 'logout' %}"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
-			<p class="name"><strong>Nickname</strong></p>
+			<p class="name"><strong>{{ request.user }}</strong></p>
 			<p class="my-tags">Мои тэги:</p>
 			<div class="tags">
                 {% for tag in tags %}
                 <div class="tag" style="background: {{ tag.background_color }}; color: {{ tag.text_color }}">
                     <span>{{ tag.text }}</span>
-                    <button class="delete" id="del-{{ tag.id }}"><i class="fa fa-times"></i></button>
+                    <button class="delete" id="del-{{ tag.id }}" onclick="deleteTag(this);"><i class="fa fa-times"></i></button>
                 </div>
                 {% endfor %}
 {#				<div class="tag" style="background: #FCA3A3">#}
@@ -93,4 +93,10 @@
 			</div>
 		</form>
 	</body>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous">
+</script>
+<script src="{% static 'js/tags.js' %}"></script>
 </html>

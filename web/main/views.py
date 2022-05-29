@@ -17,14 +17,15 @@ def format_name(tpl):
 def get_context(git_owner, git_repo):
     commits = get_commits(git_owner, git_repo)
     stats = get_metrics(git_owner, git_repo)
-    # releases = get_releases(git_owner, git_repo)
+    releases = get_releases(git_owner, git_repo)
     for commit in commits:
-        commit['commit']['committer']['date'] = datetime.fromisoformat(
-            commit['commit']['committer']['date'][:-1]
-        ).strftime("%d.%m.%y %H:%M")
-    # for key, date in releases.items():
-    #     releases[key] = datetime.fromisoformat(date).strftime("%d.%m.%y")
-    return commits, stats, []
+        try:
+            commit['commit']['committer']['date'] = datetime.fromisoformat(
+                commit['commit']['committer']['date'][:-1]
+            ).strftime("%d.%m.%y %H:%M")
+        except:
+            return [], stats, releases
+    return commits, stats, releases
 
 
 def home(request):
@@ -66,7 +67,7 @@ def projects_list(request):
                       "bgColor": tag.background_color,
                       "txtColor": tag.text_color
                   }
-                  )for tag in project.tag_set.all()]
+                  )for tag in project.tag_set.filter(user=request.user)]
             ),
             "year": str(project.year_group.name)
         } for project in Project.objects.all()
@@ -94,7 +95,6 @@ def project_review(request, git_user, git_repo):
     if request.user.is_authenticated:
         if project := Project.objects.filter(github_slug=f'{git_user}/{git_repo}'):
             project = project[0]
-    commits, stats, releases = get_context(git_user, git_repo)
     try:
         commits, stats, releases = get_context(git_user, git_repo)
     except BaseException:
@@ -106,6 +106,12 @@ def project_review(request, git_user, git_repo):
     }
     if project:
         context |= {
+            'git': project.github_slug,
+            'vk_students': project.student_set.all(),
+            'tags': {
+                'bounded': project.tag_set.filter(user=request.user),
+                'unbounded': list(set(Tag.objects.filter(user=request.user)) - set(project.tag_set.filter(user=request.user)))
+            },
             'students': zip(count(), colors, project.student_set.all()),
             'main_tile': {
                 'project_name': project.name,
@@ -117,6 +123,7 @@ def project_review(request, git_user, git_repo):
             }
         }
     if not error:
+        print(releases)
         context |= {
             'tasks_tile': get_issues_stats(git_user, git_repo),
             'commits_tile': {
@@ -146,7 +153,6 @@ def project_review(request, git_user, git_repo):
         }
 
     return render(request, 'review.html', context=context)
-
 
 
 def year_group(request):
@@ -227,7 +233,7 @@ def tag(request):
             user=request.user
         )
         new_tag.save()
-        return redirect('projects')
+        return redirect('personal')
     else:
         return redirect('home')
 
@@ -247,6 +253,7 @@ def change_password(request):
         else:
             return redirect('personal')
 
+
 def ajax_commits(request):
     if request.method != 'POST':
         return redirect('projects')
@@ -255,7 +262,10 @@ def ajax_commits(request):
             request.POST['git_owner'], request.POST['git_repo'], request.POST['git_user']
         )
         for i in range(min(5, len(answer))):
-            answer[i]['commit']['committer']['date'] = datetime.fromisoformat(answer[i]['commit']['committer']['date'][:-1]).strftime("%d.%m.%y %H:%M")
+            try:
+                answer[i]['commit']['committer']['date'] = datetime.fromisoformat(answer[i]['commit']['committer']['date'][:-1]).strftime("%d.%m.%y %H:%M")
+            except:
+                return JsonResponse({'error': 1})
         return JsonResponse(answer, safe=False)
     return JsonResponse({'error': 0})
 
@@ -283,12 +293,43 @@ def ajax_main_year(request):
 
 
 def ajax_delete_tag(request):
-    pass
+    if request.method != 'POST':
+        return redirect('projects')
+    if 'tagId' in request.POST:
+        tag = Tag.objects.filter(user=request.user, id=int(request.POST['tagId']))
+        if tag:
+            tag.delete()
+    return JsonResponse({'error': 0})
 
 
 def ajax_bound_tag(request):
-    pass
+    if request.method != 'POST':
+        return redirect('projects')
+    if all(i in request.POST for i in ['git_owner', 'git_repo', 'tagId']):
+        git_owner = request.POST['git_owner']
+        git_repo = request.POST['git_repo']
+        project = Project.objects.filter(github_slug=f'{git_owner}/{git_repo}')[0]
+        Tag.objects.filter(id=int(request.POST['tagId']))[0].projects.add(project)
+    return JsonResponse({'error': 0})
 
 
 def ajax_unbound_tag(request):
-    pass
+    if request.method != 'POST':
+        return redirect('projects')
+    if all(i in request.POST for i in ['git_owner', 'git_repo', 'tagId']):
+        git_owner = request.POST['git_owner']
+        git_repo = request.POST['git_repo']
+        project = Project.objects.filter(github_slug=f'{git_owner}/{git_repo}')[0]
+        Tag.objects.filter(id=int(request.POST['tagId']))[0].projects.remove(project)
+    return JsonResponse({'error': 0})
+
+
+def guest_search(request):
+    if request.method != 'POST':
+        return redirect('home')
+    if 'url' in request.POST:
+        url = request.POST['url']
+        url = url.replace("https://", "").replace("github.com/", "")
+        url = url[:-1] if url[-1] == '/' else url
+        return redirect('review', *url.split('/'))
+    return redirect('home')

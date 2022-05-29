@@ -19,63 +19,58 @@
 <body>
     <div class="header">
 		<div class="left-part">
-			<a href="projects_list.html" class="back-btn"><i class="fa fa-arrow-left"></i></a>
-			<a href="https://github.com/0" class="git-btn" target="_blank"><i class="fa fa-github"></i>&#160;GitHub</a>
+			<a href="{% url 'projects' %}" class="back-btn"><i class="fa fa-arrow-left"></i></a>
+            {% if not guest %}
+			<a href="https://github.com/{{ git }}" class="git-btn" target="_blank"><i class="fa fa-github"></i>&#160;GitHub</a>
 			<ul class="vk-menu">
 				<li><a class="vk-btn" href="#"><i class="fa fa-vk"></i>&#160;ВКонтакте</a> 
 					<ul class="vk-list">
-						<li><a href="https://vk.com/0" target="_blank">Дмитрий Надобных</a></li>
-						<li><a href="https://vk.com/0" target="_blank">Даниил Присяжнюк</a></li>
-						<li><a href="https://vk.com/0" target="_blank">Даниил Шинкаренко</a></li>
-						<li><a href="https://vk.com/0" target="_blank">Валерия Хабибрахманова</a></li>
+                        {% for student in vk_students %}
+                        <li><a href="https://vk.com/{{ student.vk_uid }}" target="_blank">{{ student.firstname }} {{ student.surname }}</a></li>
+                        {% endfor %}
 					</ul>
 				</li>
 			</ul>
+            {% endif %}
 		</div>
 		<div class="right-part">
+            {% if not guest %}
 			<a href="#win-tag-setup" class="tag-setup-btn">Настройка тэгов</a>
+            {% endif %}
 		</div>
 	</div>
-	<form id="win-tag-setup" action="#" method="post">
+	<div id="win-tag-setup">
 		<a href="#" class="win-overlay"></a>
 		<div class="tag-setup-items">
 			<p>Настройка тэгов проекта: </p>
 			<div class="tags">
-				<div class="project-tags">
-					<div class="tag" style="background: red">
-						<span>Tag 1</span>
-						<button class="delete"><i class="fa fa-times"></i></button>
+				<div class="project-tags" id="bounded-tags">
+                    {% for tag in tags.bounded %}
+                    <div class="tag" style="background: {{ tag.background_color }}; color: {{ tag.text_color }}">
+						<span>{{ tag.text }}</span>
+						<button class="delete" id="b-{{ tag.id }}" onclick="unboundTag(this);"><i class="fa fa-times"></i></button>
 					</div>
-					<div class="tag" style="background: #2BBD77">
-						<span>Tag 2</span>
-						<button class="delete"><i class="fa fa-times"></i></button>
-					</div>				
-					<div class="tag" style="background: #FCA303">
-						<span>Tag 3</span>
-						<button class="delete"><i class="fa fa-times"></i></button>
-					</div>
-					<div class="tag" style="background: #2BBD57">
-						<span>Tag 4</span>
-						<button class="delete"><i class="fa fa-times"></i></button>
-					</div>				
-					<div class="tag" style="background: #FCB303">
-						<span>Tag 5</span>
-						<button class="delete"><i class="fa fa-times"></i></button>
-					</div>
+                    {% endfor %}
 				</div>
-				<div class="lk-tags">
-					<div class="tag" style="background: #FCB5A3">
-						<span>Tag 6</span>
-						<button class="enter"><i class="fa fa-plus"></i></button>
+				<div class="lk-tags" id="unbounded-tags">
+                    {% for tag in tags.unbounded %}
+                    <div class="tag" style="background: {{ tag.background_color }}; color: {{ tag.text_color }}">
+						<span>{{ tag.text }}</span>
+						<button class="enter" id="u-{{ tag.id }}" onclick="boundTag(this);"><i class="fa fa-plus"></i></button>
 					</div>
-					<div class="tag" style="background: #2AAD77">
-						<span>Tag 7</span>
-						<button class="enter"><i class="fa fa-plus"></i></button>
-					</div>
-					<div class="tag" style="background: #FAD303">
-						<span>Tag 8</span>
-						<button class="enter"><i class="fa fa-plus"></i></button>
-					</div>
+                    {% endfor %}
+{#					<div class="tag" style="background: #FCB5A3">#}
+{#						<span>Tag 6</span>#}
+{#						<button class="enter"><i class="fa fa-plus"></i></button>#}
+{#					</div>#}
+{#					<div class="tag" style="background: #2AAD77">#}
+{#						<span>Tag 7</span>#}
+{#						<button class="enter"><i class="fa fa-plus"></i></button>#}
+{#					</div>#}
+{#					<div class="tag" style="background: #FAD303">#}
+{#						<span>Tag 8</span>#}
+{#						<button class="enter"><i class="fa fa-plus"></i></button>#}
+{#					</div>#}
 				</div>
 			</div>
 			<div class="btns">
@@ -83,7 +78,7 @@
 				<a href="#">Отмена</a>
 			</div>
 		</div>
-	</form>
+	</div>
     <div class="dashboard">
         {% if not guest %}
         <div class="tile main-tile">
@@ -263,4 +258,5 @@
     let weekCounts = {{ graphic_tile|safe }};
 </script>
 <script src="{% static 'js/graphic-tile.js' %}"></script>
+<script src="{% static 'js/tags.js' %}"></script>
 </html>

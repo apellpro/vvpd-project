@@ -28,7 +28,7 @@
 		
 		<div class="page-content">
 		
-			<form id="search">
+			<form id="search" action="{% url 'search' %}" method="POST">
                 {% csrf_token %}
 				<div class="search-items">
 					<h1 class="search-name">Проверка репозитория</h1>
@@ -38,7 +38,7 @@
 						<p>(напр. https://github.com/apellpro/vvpd-project)</p>
 						<p>2. Нажмите на кнопку ниже</p>
 					</div>
-					<input type="search" placeholder="Ссылка">
+					<input type="search" placeholder="Ссылка" name="url">
 					<button type="submit" class="search-btn">
 						Найти
 						<i class="fa fa-search"></i>
