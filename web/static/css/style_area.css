@@ -13,10 +13,11 @@ body .workspace .tags {
 }
 
 body .workspace .tags .tag, .new-tag {
-	flex: 0 0 80px;
-	padding: 3px 0;
 	margin: 0 5px 0 0;
 	position: relative;
+	max-width: 320px;
+	min-width: 60px;
+	padding: 5px;
 }
 
 body .workspace .tags .tag .delete {
@@ -37,12 +38,13 @@ body .workspace .tags .new-tag {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 14px;
+	font-size: 12px;
 	border-radius: 15px;
 	border: #d4d4d4 1px solid;
 	text-decoration: none;
 	color: #000;
 	background: #f0f0f0;
+	width: 60px;
 }
 
 body .workspace .tags .new-tag:hover {

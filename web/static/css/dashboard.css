@@ -182,10 +182,12 @@ ul.vk-list > li > a:hover {
 	justify-content: center;
 	font-size: 14px;
 	border-radius: 15px;
-	flex: 0 0 80px;
-	padding: 3px 0;
+	max-width: 320px;
+	min-width: 60px;
+	padding: 5px;
 	margin: 0 5px 5px 0;
 	position: relative;
+	
 }
 
 #win-tag-setup .tag-setup-items .tags .project-tags .tag .delete, .lk-tags .tag .enter {
