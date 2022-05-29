@@ -157,60 +157,69 @@ def year_group(request):
             is_main = True
         else:
             is_main = False
-        if studying_year:
+        if studying_year and studying_year.isnumeric():
             new_group = YearGroup.objects.create(
-                name=f'{studying_year}/{int(studying_year)+1}',
+                name=f'{studying_year}/{int(studying_year) + 1}',
                 studying_year=studying_year,
                 is_main=is_main)
             new_group.save()
-        return redirect('projects')
-    else:
-        return redirect('projects')
+    return redirect('projects')
 
 
 def project(request):
-    print(request.POST, 1)
-    if request.method == 'POST':
-        if 'project-name' in request.POST and 'git-link' in request.POST:
-            name = request.POST.get('project-name')
-            github_slug = request.POST.get('git-link')
-            stud_name = request.POST.get('stud-name')
+    student_list = []
 
-            new_project = Project.objects.create(
-                name=name,
-                github_slug=github_slug,
+    if request.method == 'POST':
+        project_name = request.POST.get('project-name')
+        git_link = request.POST.get('git-link')
+
+        if project_name and git_link:
+            new_project = Project(
+                name=project_name,
+                github_slug=git_link,
                 year_group=YearGroup.objects.filter(is_main=True).first()
             )
-            new_project.save()
             for i in range(1, 5):
-                if f'stud-name-{i}' not in request.POST:
+                if not request.POST.get(f'stud-name-{i}') and i != 1:
                     continue
                 if i == 1:
                     is_leader = True
                 else:
                     is_leader = False
 
-                new_student = Student.objects.create(
-                    firstname=request.POST.get(f'stud-name-{i}'),
-                    surname=request.POST.get(f'stud-surname-{i}'),
-                    patronymic=request.POST.get(f'stud-patronymic-{i}'),
-                    education_group=request.POST.get(f'stud-group-{i}'),
-                    education_type=request.POST.get(f'stud-edu-{i}'),
-                    github_username=request.POST.get(f'stud-git-{i}'),
-                    vk_uid=request.POST.get(f'stud-vk-{i}'),
-                    is_leader=is_leader,
-                    project=new_project
-                )
-                print(new_student.__dir__())
-                new_student.save()
+                stud_name = request.POST.get(f'stud-name-{i}')
+                stud_surname = request.POST.get(f'stud-surname-{i}')
+                stud_git = request.POST.get(f'stud-git-{i}')
+
+                if stud_name and stud_surname and stud_git:
+                    new_student = Student(
+                        firstname=stud_name,
+                        surname=stud_surname,
+                        patronymic=request.POST.get(f'stud-patronymic-{i}'),
+                        education_group=request.POST.get(f'stud-group-{i}'),
+                        education_type=request.POST.get(f'stud-edu-{i}'),
+                        github_username=stud_git,
+                        vk_uid=request.POST.get(f'stud-vk-{i}'),
+                        is_leader=is_leader,
+                        project=new_project
+                    )
+                    student_list.append(new_student)
+                else:
+                    print(123)
+                    break
+            else:
+                print(student_list)
+                new_project.save()
+                for student in student_list:
+                    student.save()
     return redirect('projects')
 
 
 def tag(request):
     if request.method == 'POST':
-        text = request.POST.get('text')
-        background_color = request.POST.get('background_color')
-        text_color = request.POST.get('text_color')
+        text = request.POST.get('text-tag')
+        background_color = request.POST.get('back-color')
+        text_color = request.POST.get('text-color')
         new_tag = Tag.objects.create(
             text=text,
             background_color=background_color,
@@ -222,6 +231,20 @@ def tag(request):
     else:
         return redirect('home')
 
+def change_password(request):
+    if request.method == 'POST':
+        old_pass = request.POST.get('old-password')
+        new_pass = request.POST.get('new-password')
+        repeat_new_pass = request.POST.get('repeat-new-password')
+
+        if authenticate(request, username=request.user.username,
+                        password=old_pass) and new_pass == repeat_new_pass:
+            user = request.user
+            user.set_password(new_pass)
+            user.save()
+            return redirect('projects')
+        else:
+            return redirect('personal')
 
 def ajax_commits(request):
     if request.method != 'POST':

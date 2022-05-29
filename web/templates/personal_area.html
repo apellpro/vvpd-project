@@ -39,6 +39,8 @@
 {#				</div>#}
 				<a href="#win-tag" class="new-tag">+</a>
 			</div>
+			<form action="{% url 'change_password' %}" method="post">
+				{% csrf_token %}
 			<p class="change-pas-text">Смена пароля:</p>
 			<div class="input-box">
 				<input type="text" placeholder=" ">
@@ -53,9 +55,11 @@
 				<label>Повторите новый пароль</label>
 			</div>
 			<input class="change-pas" type="submit" value="Сменить пароль">
+			</form>
 		</div>
 		<div class="space"></div>
-		<form id="win-tag" action="#" method="post">
+		<form id="win-tag" action="{% url 'add_personal_tag' %}" method="post">
+			{% csrf_token %}
 			<a href="#" class="win-overlay"></a>
 			<div class="tag-items">
 				<p class="name">Настройки нового тэга: </p>

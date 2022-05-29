@@ -17,4 +17,5 @@ urlpatterns = [
     path('functions/addproject/', views.project, name='add_project'),
     path('functions/addpersonaltag/', views.tag,
          name='add_personal_tag'),
+    path('changepassword/', views.change_password, name='change_password')
 ]
