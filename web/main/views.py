@@ -21,11 +21,11 @@ def get_context(git_owner, git_repo):
     releases = get_releases(git_owner, git_repo)
     for commit in commits:
         try:
-            date = datetime.fromisoformat(
+            curr_date = datetime.fromisoformat(
                 commit['commit']['committer']['date'][:-1]
             )
-            date += timedelta(hours=7)
-            commit['commit']['committer']['date'] = date.strftime("%d.%m.%y %H:%M")
+            curr_date += timedelta(hours=7)
+            commit['commit']['committer']['date'] = curr_date.strftime("%d.%m.%y %H:%M")
             commit['commit']['message'] = commit['commit']['message'].split('\n\n')[0][:79]
         except BaseException as e:
             print("Error:", e)
@@ -145,17 +145,20 @@ def project_review(request, git_user, git_repo):
                 ] + [
                   i for i in stats['files'].items() if i[0] != 'code_of_conduct_file'
                 ])),
-                'color': 'green' if stats['health_percentage'] >= 80 else 'yellow' if stats['health_percentage'] >= 20 else 'red'
+                'color': 'green' if stats['health_percentage'] >= 80 else 'orange' if stats['health_percentage'] >= 20 else 'red'
             },
         }
 
     if not error and project:
-        context |= {
-            'impact_tile': [
-                len(get_commits(git_user, git_repo, i.github_username))
-                for i in project.student_set.all()
-            ],
-        }
+        try:
+            context |= {
+                'impact_tile': [
+                    len(get_commits(git_user, git_repo, i.github_username))
+                    for i in project.student_set.all()
+                ],
+            }
+        except:
+            pass
 
     return render(request, 'review.html', context=context)
 
@@ -269,6 +272,12 @@ def ajax_commits(request):
         for i in range(min(5, len(answer))):
             try:
                 answer[i]['commit']['committer']['date'] = datetime.fromisoformat(answer[i]['commit']['committer']['date'][:-1]).strftime("%d.%m.%y %H:%M")
+                curr_date = datetime.fromisoformat(
+                    answer[i]['commit']['committer']['date'][:-1]
+                )
+                curr_date += timedelta(hours=7)
+                answer[i]['commit']['committer']['date'] = curr_date.strftime("%d.%m.%y %H:%M")
+                answer[i]['commit']['message'] = answer[i]['commit']['message'].split('\n\n')[0][:79]
             except:
                 return JsonResponse({'error': 1})
         return JsonResponse(answer, safe=False)

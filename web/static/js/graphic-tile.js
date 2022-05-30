@@ -38,12 +38,16 @@ function drawGraph() {
             startX + basicWidth * i,
             graphHeight + 25
         )
-        var date = new Date();
-        var delta = 1 - date.getDay();
+    }
+    let date = new Date()
+    for (let i = weekCounts.length - 1; i >= 0; i--) {
+        let delta = 1 - date.getDay()
         date.setDate(date.getDate() - 7 + delta)
-        gCtx.fillText(`${date.getDay()}.${date.getMonth()}`,
+        let currDay = '0' + date.getDate()
+        let cuurMonth = '0' + (date.getMonth() + 1)
+        gCtx.fillText(`${currDay.slice(-2)}.${cuurMonth.slice(-2)}`,
             startX + basicWidth * i,
-            graphHeight + 45
+            graphHeight + 55
         )
     }
     gCtx.closePath()
