@@ -11,19 +11,19 @@
 	</head>
 	<body onload="updateProjectList()">
 		<div class="side-btns">
-			<a href="#win-project"><i class="fas fa-plus"></i></a>
-			<a href="#win-year"><i class="far fa-calendar-plus"></i></a>
+			<a href="#win-project" title="Добавить новый проект"><i class="fas fa-plus"></i></a>
+			<a href="#win-year" title="Добавить новый поток"><i class="far fa-calendar-plus"></i></a>
             {% if request.user.is_staff %}
-			<a href="/admin"><i class="fas fa-user-cog"></i></a>
+			<a href="/admin" title="Админ-меню (Django)"><i class="fas fa-user-cog"></i></a>
             {% endif %}
-			<a href="{% url 'personal' %}"><i class="fas fa-user"></i></a>
-			<a href="#"><i class="fa fa-book"></i></a>
-			<a href="{% url 'logout' %}"><i class="fas fa-door-closed"></i></a>
+			<a href="{% url 'personal' %}" title="Личный кабинет"><i class="fas fa-user"></i></a>
+            <a href="#" title="Инструкция"><i class="fa fa-book"></i></a>
+			<a href="{% url 'logout' %}" title="Выйти"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
 			<div class=" up-part">
 				<div class="search">
-					<input id="search-input" type="text" placeholder="Поиск" name="search">
+					<input id="search-input" type="text" placeholder="Поиск по названию/студентам" name="search">
 					<button id="search-btn" class="search-btn" onclick="updateProjectList()"><i class="fas fa-search"></i></button>
 				</div>
 				<select class="tag-choice" name="tag-select" id="tag-select" onchange="updateProjectList()">

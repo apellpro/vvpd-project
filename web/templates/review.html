@@ -2,7 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>
+        {% if not guest %}
+        ::{{ main_tile.project_name }}::
+        {% else %}
+        ::{{ ajax.owner }}/{{ ajax.repo }}::
+        {% endif %}
+    </title>
     {% load static %}
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -19,9 +25,9 @@
 <body>
     <div class="header">
 		<div class="left-part">
-			<a href="{% url 'projects' %}" class="back-btn"><i class="fa fa-arrow-left"></i></a>
+			<a href="{% url 'projects' %}" class="back-btn" title="Вернуться"><i class="fa fa-arrow-left"></i></a>
             {% if not guest %}
-			<a href="https://github.com/{{ git }}" class="git-btn" target="_blank"><i class="fa fa-github"></i>&#160;GitHub</a>
+			<a href="https://github.com/{{ git }}" class="git-btn" target="_blank" title="Открыть Github-страницу проекта"><i class="fa fa-github"></i>&#160;GitHub</a>
 			<ul class="vk-menu">
 				<li><a class="vk-btn" href="#"><i class="fa fa-vk"></i>&#160;ВКонтакте</a> 
 					<ul class="vk-list">
@@ -191,7 +197,7 @@
         <div class="tile common-tile rating-tile">
             <p class="title">Рейтинг</p>
             <div class="rating-holder">
-                <div class="pie-view" style="--percentage: {{ rating_tile.percentage }}; --color: red;">
+                <div class="pie-view" style="--percentage: {{ rating_tile.percentage }}; --color: {{ rating_tile.color }};">
                     <div class="pie"></div>
                     <span class="score">{{ rating_tile.percentage }}</span>
                 </div>
@@ -233,7 +239,6 @@
                 <span class="delta-minus" id="user-delta-minus"></span>
             </div>
         </div>
-        <div class="tile user-tile"></div>
         {% endif %}
         {% endif %}
     </div>

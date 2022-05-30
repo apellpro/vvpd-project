@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from itertools import count
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -20,10 +21,14 @@ def get_context(git_owner, git_repo):
     releases = get_releases(git_owner, git_repo)
     for commit in commits:
         try:
-            commit['commit']['committer']['date'] = datetime.fromisoformat(
+            date = datetime.fromisoformat(
                 commit['commit']['committer']['date'][:-1]
-            ).strftime("%d.%m.%y %H:%M")
-        except:
+            )
+            date += timedelta(hours=7)
+            commit['commit']['committer']['date'] = date.strftime("%d.%m.%y %H:%M")
+            commit['commit']['message'] = commit['commit']['message'].split('\n\n')[0][:79]
+        except BaseException as e:
+            print("Error:", e)
             return [], stats, releases
     return commits, stats, releases
 
@@ -102,7 +107,11 @@ def project_review(request, git_user, git_repo):
 
     context = {
         'guest': not bool(project),
-        'error': error
+        'error': error,
+        'ajax': {
+            'owner': git_user,
+            'repo': git_repo
+        }
     }
     if project:
         context |= {
@@ -117,13 +126,8 @@ def project_review(request, git_user, git_repo):
                 'project_name': project.name,
                 'students': zip(count(), colors, project.student_set.all())
             },
-            'ajax': {
-                'owner': git_user,
-                'repo': git_repo
-            }
         }
     if not error:
-        print(releases)
         context |= {
             'tasks_tile': get_issues_stats(git_user, git_repo),
             'commits_tile': {
@@ -132,7 +136,7 @@ def project_review(request, git_user, git_repo):
                 'count': len(commits) - 5
             },
             'graphic_tile': get_commits_per_weeks(git_user, git_repo),
-            'release_tile': releases[:4],
+            'release_tile': [(f, datetime.fromisoformat(s[:-1]).strftime("%d.%m.%y %H:%M")) for f, s in releases[:4]],
             'delta_tile': get_project_delta(git_user, git_repo),
             'rating_tile': {
                 'percentage': stats['health_percentage'],
@@ -140,7 +144,8 @@ def project_review(request, git_user, git_repo):
                   ('description', stats['description']),
                 ] + [
                   i for i in stats['files'].items() if i[0] != 'code_of_conduct_file'
-                ]))
+                ])),
+                'color': 'green' if stats['health_percentage'] >= 80 else 'yellow' if stats['health_percentage'] >= 20 else 'red'
             },
         }
 
@@ -331,5 +336,8 @@ def guest_search(request):
         url = request.POST['url']
         url = url.replace("https://", "").replace("github.com/", "")
         url = url[:-1] if url[-1] == '/' else url
-        return redirect('review', *url.split('/'))
+        try:
+            return redirect('review', *url.split('/'))
+        except:
+            pass
     return redirect('home')

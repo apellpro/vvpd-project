@@ -11,9 +11,9 @@
 	</head>
 	<body>
 		<div class="side-btns">
-			<a href="{% url 'projects' %}"><i class="fa fa-arrow-left"></i></a>
-			<a href="/admin"><i class="fas fa-user-cog"></i></a>
-			<a href="{% url 'logout' %}"><i class="fas fa-door-closed"></i></a>
+			<a href="{% url 'projects' %}" title="Вернуться к списку проектов"><i class="fa fa-arrow-left"></i></a>
+			<a href="/admin" title="Админ-меню (Django)"><i class="fas fa-user-cog"></i></a>
+			<a href="{% url 'logout' %}" title="Выйти"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
 			<p class="name"><strong>{{ request.user }}</strong></p>
@@ -25,19 +25,7 @@
                     <button class="delete" id="del-{{ tag.id }}" onclick="deleteTag(this);"><i class="fa fa-times"></i></button>
                 </div>
                 {% endfor %}
-{#				<div class="tag" style="background: #FCA3A3">#}
-{#					<span>Tag 1</span>#}
-{#					<button class="delete"><i class="fa fa-times"></i></button>#}
-{#				</div>#}
-{#				<div class="tag" style="background: #2BBD77">#}
-{#					<span>Tag 2</span>#}
-{#					<button class="delete"><i class="fa fa-times"></i></button>#}
-{#				</div>#}
-{#				<div class="tag" style="background: #FCA303">#}
-{#					<span>Tag 3</span>#}
-{#					<button class="delete"><i class="fa fa-times"></i></button>#}
-{#				</div>#}
-				<a href="#win-tag" class="new-tag"><i class="fa fa-plus"></a>
+                <a href="#win-tag" class="new-tag" title="Добавить новый тэг"><i class="fa fa-plus"></i></a>
 			</div>
 			<form action="{% url 'change_password' %}" method="post">
 				{% csrf_token %}

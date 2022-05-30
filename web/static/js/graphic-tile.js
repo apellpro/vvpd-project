@@ -1,7 +1,7 @@
 let gCanvas = document.getElementById('graphic')
 let gCtx = gCanvas.getContext('2d')
 
-let graphHeight = 180
+let graphHeight = 150
 let graphWidth = 500
 
 let basicHeight = graphHeight / (Math.max.apply(null, weekCounts) + 3)
@@ -37,6 +37,13 @@ function drawGraph() {
         gCtx.fillText(`${weekCounts[i]}`,
             startX + basicWidth * i,
             graphHeight + 25
+        )
+        var date = new Date();
+        var delta = 1 - date.getDay();
+        date.setDate(date.getDate() - 7 + delta)
+        gCtx.fillText(`${date.getDay()}.${date.getMonth()}`,
+            startX + basicWidth * i,
+            graphHeight + 45
         )
     }
     gCtx.closePath()
