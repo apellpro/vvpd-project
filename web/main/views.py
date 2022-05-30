@@ -87,7 +87,7 @@ def projects_list(request):
 @login_required(login_url='home')
 def personal(request):
     return render(request, 'personal_area.html', context={
-        'tags': Tag.objects.all()
+        'tags': Tag.objects.filter(user=request.user)
     })
 
 
