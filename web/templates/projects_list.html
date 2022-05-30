@@ -17,6 +17,7 @@
 			<a href="/admin"><i class="fas fa-user-cog"></i></a>
             {% endif %}
 			<a href="{% url 'personal' %}"><i class="fas fa-user"></i></a>
+			<a href="#"><i class="fa fa-book"></i></a>
 			<a href="{% url 'logout' %}"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
@@ -74,6 +75,7 @@
 			<a href="#" class="win-overlay"></a>
 			<div class="project-items">
 				<p class="name">Новый проект</p>
+				<p class="main-year-proj">Проект добавится к основному потоку!</p>
 				<div class="project">
 					<div class="input-box">
 						<input type="text" placeholder=" " name="project-name">
