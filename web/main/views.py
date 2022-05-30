@@ -273,7 +273,6 @@ def ajax_commits(request):
         )
         for i in range(min(5, len(answer))):
             try:
-                answer[i]['commit']['committer']['date'] = datetime.fromisoformat(answer[i]['commit']['committer']['date'][:-1]).strftime("%d.%m.%y %H:%M")
                 curr_date = datetime.fromisoformat(
                     answer[i]['commit']['committer']['date'][:-1]
                 )
