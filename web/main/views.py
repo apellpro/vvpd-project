@@ -79,7 +79,7 @@ def projects_list(request):
     ]
     return render(request, 'projects_list.html', context={
         'projects': dumps(projects_json),
-        'tags': Tag.objects.all(),
+        'tags': Tag.objects.filter(user=request.user),
         'year_groups': YearGroup.objects.all(),
     })
 
