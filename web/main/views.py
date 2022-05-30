@@ -188,6 +188,8 @@ def project(request):
         git_link = request.POST.get('git-link')
 
         if project_name and git_link:
+            git_link = git_link.replace("https://", "").replace("github.com/", "")
+            git_link = git_link[:-1] if git_link[-1] == '/' else git_link
             new_project = Project(
                 name=project_name,
                 github_slug=git_link,

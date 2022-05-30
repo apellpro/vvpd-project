@@ -44,10 +44,10 @@ class Student(models.Model):
     firstname = models.CharField('Имя', max_length=32)
     surname = models.CharField('Фамилия', max_length=32)
     patronymic = models.CharField('Отчество', max_length=32, blank=True)
-    education_group = models.CharField('Группа студента', max_length=32)
-    education_type = models.CharField('Форма обучения', max_length=32)
+    education_group = models.CharField('Группа студента', max_length=32, blank=True)
+    education_type = models.CharField('Форма обучения', max_length=32, blank=True)
     github_username = models.CharField('Имя пользователя GitHub', max_length=32)
-    vk_uid = models.CharField('ID пользователя VK', max_length=32)
+    vk_uid = models.CharField('ID пользователя VK', max_length=32, blank=True)
     is_leader = models.BooleanField('Сделать лидером команды')
 
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
