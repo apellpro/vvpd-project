@@ -13,11 +13,11 @@ body .workspace .tags {
 }
 
 body .workspace .tags .tag, .new-tag {
-	margin: 0 5px 0 0;
+	margin: 0 5px 10px 0;
 	position: relative;
 	max-width: 320px;
 	min-width: 60px;
-	padding: 5px;
+	padding: 6px 10px;
 }
 
 body .workspace .tags .tag .delete {

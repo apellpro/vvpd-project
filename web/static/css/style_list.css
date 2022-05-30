@@ -54,6 +54,7 @@ body .workspace .up-part .tag-choice {
 	margin: 0 10px;
 	padding: 3px;
 	background: #fff;
+	width: 150px;
 }
 
 body .workspace .down-part {
