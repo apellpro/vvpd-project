@@ -17,7 +17,7 @@
 			<a href="/admin" title="Админ-меню (Django)"><i class="fas fa-user-cog"></i></a>
             {% endif %}
 			<a href="{% url 'personal' %}" title="Личный кабинет"><i class="fas fa-user"></i></a>
-            <a href="#" title="Инструкция"><i class="fa fa-book"></i></a>
+            <a href="{% static 'Instruktsia_polzovatelya.pdf' %}" title="Инструкция" target="_blank"><i class="fa fa-book"></i></a>
 			<a href="{% url 'logout' %}" title="Выйти"><i class="fas fa-door-closed"></i></a>
 		</div>
 		<div class="workspace">
